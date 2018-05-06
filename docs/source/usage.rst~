@@ -41,7 +41,7 @@ Using Photon
 
 Installation
 ~~~~~~~~~~~~
-For the moment, the only way to use Photon is to download the source code from the Github repository (https://github.com/astrom-tom/VcatPy - using the 'clone or download' button and download as zip). To make it work you have to use python 3.6 with the following library and versions:
+For the moment, the only way to use Photon is to download the source code from the Github repository (https://github.com/astrom-tom/Photon - using the 'clone or download' button and download as zip). To make it work you have to use python 3.6 with the following library and versions:
 
 * PyQt5 v5.10.1: The is for the graphical interface
 * Matplotlib v2.2.2: This is for the plotting area. 
