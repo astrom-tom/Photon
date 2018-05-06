@@ -98,7 +98,7 @@ class Main_window(QWidget):
         self.text_index = 0
         self.widget_list = []
         self.initUI()
-        self.setWindowTitle('Photon V1.0, %s' %args.file)
+        self.setWindowTitle('VCatPy V1.0, %s' %args.file)
 
     def initUI(self):
         '''
