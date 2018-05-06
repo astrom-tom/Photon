@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-VcatPy's Documentation 1.0
+Photon v1.0 Documentation
 ===============================================
 
 |python| |Python36|  |Licence|

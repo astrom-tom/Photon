@@ -51,14 +51,14 @@ Contents
 
 ----
 
-VcatPy is a GUi created to make simple 1D plot in python. It uses mainly matplotlib and PyQt5 and it has been build in the spirit of begin fully customizable. You can change fontstyle, fontsize, fontcolors, linewidth of the axes, thickness, etc. Once a customization is created, you can save it into a configuration file and reload it later when you open VcatPy again. The main tool is a graphical user interface and it is started using a command line interface.
+Photon is a GUi created to make simple 1D plot in python. It uses mainly matplotlib and PyQt5 and it has been build in the spirit of begin fully customizable. You can change fontstyle, fontsize, fontcolors, linewidth of the axes, thickness, etc. Once a customization is created, you can save it into a configuration file and reload it later when you open photon again. The main tool is a graphical user interface and it is started using a command line interface.
 
 
 ----
 
 **Contribute!**
 
-If you have any comment or anything you would like to be added to VcatPy, or, even better, if you want to modify you can either do it yourself or  please feel free to contact me! ---> @ **the.spartan.proj@gmail.com**
+If you have any comment or anything you would like to be added to photon, or, even better, if you want to modify you can either do it yourself or  please feel free to contact me! ---> @ **the.spartan.proj@gmail.com**
 
 ----
 
@@ -66,11 +66,11 @@ If you have any comment or anything you would like to be added to VcatPy, or, ev
  
 	**Copyright**
  
-	VcatPy is a free software: you can redistribute it and/or modify it under 
+	Photon is a free software: you can redistribute it and/or modify it under 
 	the terms of the GNU General Public License as published by the Free Software Foundation, 
 	version 3 of the License.
  
-	VcatPy is distributed without any warranty; without even the implied warranty of merchantability 
+	Photon is distributed without any warranty; without even the implied warranty of merchantability 
 	or fitness for a particular purpose.  See the GNU General Public License for more details.
  
 	You should have received a copy of the GNU General Public License along with the program.
