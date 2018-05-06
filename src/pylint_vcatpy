@@ -1,0 +1,146 @@
+************* Module src.VcatPy
+W: 29, 0: Reimport 'QTabWidget' (imported line 29) (reimported)
+W: 29, 0: Reimport 'QLineEdit' (imported line 29) (reimported)
+C: 47, 0: Import "import extract" should be placed at the top of the module (wrong-import-position)
+C: 48, 0: Import "import parameters_matplotlib as pm" should be placed at the top of the module (wrong-import-position)
+C: 49, 0: Import "import tooltips" should be placed at the top of the module (wrong-import-position)
+C: 50, 0: Import "from read_conf import Conf as conf" should be placed at the top of the module (wrong-import-position)
+C: 51, 0: Import "import write_conf as write" should be placed at the top of the module (wrong-import-position)
+W:147, 8: Expression "[self.plotarea.setRowStretch(i, 2) for i in range(30)]" is assigned to nothing (expression-not-assigned)
+C:376,15: Using type() instead of isinstance() for a typecheck. (unidiomatic-typecheck)
+W:574,12: Expression "[b.remove() for b in self.dico_widget[('hist_') + (str(index))][2]]" is assigned to nothing (expression-not-assigned)
+W:1175,16: Unused variable 'a' (unused-variable)
+W: 38, 0: Unused Cursor imported from matplotlib.widgets (unused-import)
+C: 18, 0: standard import "import sys" should be placed before "import cli" (wrong-import-order)
+C: 19, 0: standard import "import warnings" should be placed before "import cli" (wrong-import-order)
+C: 20, 0: standard import "from functools import partial" should be placed before "import cli" (wrong-import-order)
+C: 21, 0: standard import "import ntpath" should be placed before "import cli" (wrong-import-order)
+C: 22, 0: third party import "import numpy" should be placed before "import cli" (wrong-import-order)
+C: 26, 0: third party import "import PyQt5.QtCore as QtCore" should be placed before "import cli" (wrong-import-order)
+C: 27, 0: third party import "import PyQt5.QtGui as QtGui" should be placed before "import cli" (wrong-import-order)
+C: 29, 0: third party import "from PyQt5.QtWidgets import QApplication, QGridLayout, QWidget, QVBoxLayout, QTabWidget, QTabWidget, QLineEdit, QLineEdit, QInputDialog, QCheckBox, QHBoxLayout, QScrollArea, QComboBox, QPushButton, QLabel, QSlider, QFileDialog, QSpinBox" should be placed before "import cli" (wrong-import-order)
+C: 35, 0: third party import "from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas" should be placed before "import cli" (wrong-import-order)
+C: 36, 0: third party import "from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar" should be placed before "import cli" (wrong-import-order)
+C: 37, 0: third party import "from matplotlib.figure import Figure" should be placed before "import cli" (wrong-import-order)
+C: 38, 0: third party import "from matplotlib.widgets import Cursor" should be placed before "import cli" (wrong-import-order)
+C: 39, 0: third party import "import matplotlib" should be placed before "import cli" (wrong-import-order)
+
+
+Report
+======
+719 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |1      |1          |=          |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |1      |1          |=          |0.00        |100.00   |
++---------+-------+-----------+-----------+------------+---------+
+|method   |17     |17         |=          |100.00      |5.88     |
++---------+-------+-----------+-----------+------------+---------+
+|function |0      |0          |=          |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+External dependencies
+---------------------
+::
+
+    PyQt5 
+      \-QtCore (src.VcatPy)
+      \-QtGui (src.VcatPy)
+      \-QtWidgets (src.VcatPy)
+    cli (src.VcatPy)
+    extract (src.VcatPy)
+    matplotlib (src.VcatPy)
+      \-backends 
+      | \-backend_qt5agg (src.VcatPy)
+      \-figure (src.VcatPy)
+      \-widgets (src.VcatPy)
+    numpy (src.VcatPy)
+    parameters_matplotlib (src.VcatPy)
+    read_conf (src.VcatPy)
+    tooltips (src.VcatPy)
+    write_conf (src.VcatPy)
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |765    |63.91 |765      |=          |
++----------+-------+------+---------+-----------+
+|docstring |73     |6.10  |73       |=          |
++----------+-------+------+---------+-----------+
+|comment   |152    |12.70 |152      |=          |
++----------+-------+------+---------+-----------+
+|empty     |207    |17.29 |207      |=          |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |0        |=          |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |0.000    |=          |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |19     |7        |+12.00     |
++-----------+-------+---------+-----------+
+|refactor   |0      |0        |=          |
++-----------+-------+---------+-----------+
+|warning    |6      |6        |=          |
++-----------+-------+---------+-----------+
+|error      |0      |0        |=          |
++-----------+-------+---------+-----------+
+
+
+
+Messages
+--------
+
++------------------------+------------+
+|message id              |occurrences |
++========================+============+
+|wrong-import-order      |13          |
++------------------------+------------+
+|wrong-import-position   |5           |
++------------------------+------------+
+|reimported              |2           |
++------------------------+------------+
+|expression-not-assigned |2           |
++------------------------+------------+
+|unused-variable         |1           |
++------------------------+------------+
+|unused-import           |1           |
++------------------------+------------+
+|unidiomatic-typecheck   |1           |
++------------------------+------------+
+
+
+
+
+------------------------------------------------------------------
+Your code has been rated at 9.65/10 (previous run: 9.82/10, -0.17)
+

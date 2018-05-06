@@ -1,0 +1,315 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Available Graphical customization &mdash; Photon 0.1.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Available elements" href="graphics.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Photon
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Using Photon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graphics.html">Available elements</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Available Graphical customization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Photon</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Available Graphical customization</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/custom.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p id="custom"><a class="reference external" href="https://www.python.org/downloads/release/python-360/"><img alt="python" src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg" /></a> <img alt="Python36" src="https://img.shields.io/badge/python-3.6-blue.svg" />  <a class="reference external" href="http://perso.crans.org/besson/LICENSE.html"><img alt="Licence" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a>
+<a class="reference external" href="https://matplotlib.org/"><img alt="matplotlib" src="https://img.shields.io/badge/poweredby-matplotlib-orange.svg" /></a> <a class="reference external" href="https://pypi.python.org/pypi/PyQt5"><img alt="PyQt5" src="https://img.shields.io/badge/poweredby-PyQt5-orange.svg" /></a> <a class="reference external" href="http://www.numpy.org/"><img alt="numpy" src="https://img.shields.io/badge/poweredby-numpy-orange.svg" /></a> <a class="reference external" href="https://www.scipy.org/"><img alt="scipy" src="https://img.shields.io/badge/poweredby-scipy-orange.svg" /></a></p>
+<div class="section" id="available-graphical-customization">
+<h1>Available Graphical customization<a class="headerlink" href="#available-graphical-customization" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Photon allows you to customize your plot in many different aspects. This page will show what options you can use.</p>
+<div class="figure align-right" id="id1" style="width: 300px">
+<img alt="_images/custom_all.png" src="_images/custom_all.png" />
+<p class="caption"><span class="caption-text">Customization related widgets.</span></p>
+</div>
+<p>All the options are displayed in the figure on the right and we will detail them here.</p>
+<div class="section" id="axis-limits">
+<h2>Axis limits<a class="headerlink" href="#axis-limits" title="Permalink to this headline">¶</a></h2>
+<p>The four first boxes (with ‘Xmin’,’Xmax’, ‘Ymin’ and ‘Ymax’) are made to constrain the axis limits of the plot. Of course, Xmax&gt;Xmin and Ymax&gt;Ymin.
+To make it work you must fill all the boxes.
+If you only enter one Photon will not recognize it as a valid configuration and will set the constraints by itself to 0,1;0,1.
+Also you can choose to transform the x and y axis into log-scales. In order to do this you must check the Logx and/or Logy checkboxes.</p>
+</div>
+<div class="section" id="background-color">
+<h2>Background color<a class="headerlink" href="#background-color" title="Permalink to this headline">¶</a></h2>
+<p>The two widget about the background color (Label widget with ‘back color’, and color list) allow you to change the color of the background of your plot.</p>
+</div>
+<div class="section" id="axis-properties">
+<h2>Axis properties<a class="headerlink" href="#axis-properties" title="Permalink to this headline">¶</a></h2>
+<p>The program also let you play with the axis and their labels.
+This is done in the AXIS section. Here you can change the color of the axis, and the color of their labels as well.
+The tickness of the axis lines is controlled by the <em>linewidth</em> widget and the size of the labels is
+managed by the <em>Label size</em> widget.</p>
+</div>
+<div class="section" id="ticks-properties">
+<h2>Ticks properties<a class="headerlink" href="#ticks-properties" title="Permalink to this headline">¶</a></h2>
+<p>The properties of the ticks in the plot are controlled in the TICKS section.
+This section starts with 2 checkboxes.
+The first will add or remove the minorticks while the second will place them inside or outside.
+The four next widgets let you manage the length and width of the major and minor ticks (<em>Major size</em>, <em>Minor size</em>, <em>Major width</em>, <em>Minor width</em>).
+Then you can control the color of the ticks using the <em>Ticks color</em> widget as well as the color of the ticks labels with <em>Label Color</em>.
+Finally, the size of the ticks labels is modified with the <em>Label Size</em> widget.</p>
+</div>
+<div class="section" id="fonts">
+<h2>Fonts<a class="headerlink" href="#fonts" title="Permalink to this headline">¶</a></h2>
+<p>The section FONTS will let you choose the font used by the labels.
+You can change both axis and ticks label fonts using <em>Font axis Label</em> and <em>Font ticks Label</em>, respectively. The fonts that you can use depends entirely on your system as Photon is asking Matplotlib what fonts are available (the font list is not hardcoded).</p>
+</div>
+<div class="section" id="legend">
+<h2>Legend<a class="headerlink" href="#legend" title="Permalink to this headline">¶</a></h2>
+<p>The LEGEND section help you to customize the legend of your plot. You have 4 options.
+The frame of the legend (box around the legend) can be turned On/Off with the first checkbox of the section.
+The legend size can also be modified using the <em>Legend Size</em> widget (this will modify the fontsize of the text in the legend).
+The font can also be changed using the <em>Font Legend</em> properties.
+The color of the text in the legend can be changed using the <em>Label color</em> widget.
+Finally, the legend position can be changed using the <em>Legend Location</em> widget. To let the legend be automatically placed you just have to choose ‘best’. If you want it in a special place (9 possibilities) you can chose in the list what fits best for your plot.</p>
+</div>
+<div class="section" id="save-the-customization">
+<h2>Save the customization<a class="headerlink" href="#save-the-customization" title="Permalink to this headline">¶</a></h2>
+<p>Changing the configuration each time can become bothersome.
+If you want to keep the same style for all your plots you can save all the custom options in a configuration file.
+Once you are happy with your configuration, press the ‘Save new theme’ button and it will open a file saving
+dialog window. Here you enter the name of the configuration you want to save (like in any other program).</p>
+<p>The Photon customization file look like this:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>background<span class="o">]</span>
+<span class="nv">back_color</span> <span class="o">=</span> white
+
+<span class="o">[</span>AXIS<span class="o">]</span>
+<span class="nv">color</span> <span class="o">=</span> black
+<span class="nv">label_color</span> <span class="o">=</span> black
+<span class="nv">linewidth</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">labelsize</span> <span class="o">=</span> <span class="m">17</span>
+<span class="nv">axis_label_font</span> <span class="o">=</span> DejaVu Math TeX Gyre
+
+<span class="o">[</span>TICKS<span class="o">]</span>
+<span class="nv">minor</span> <span class="o">=</span> on
+<span class="nv">placement</span> <span class="o">=</span> in
+<span class="nv">major_size</span> <span class="o">=</span> <span class="m">6</span>
+<span class="nv">minor_size</span> <span class="o">=</span> <span class="m">4</span>
+<span class="nv">major_width</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">minor_width</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">ticks_color</span> <span class="o">=</span> black
+<span class="nv">label_color</span> <span class="o">=</span> black
+<span class="nv">label_size</span> <span class="o">=</span> <span class="m">17</span>
+<span class="nv">ticks_label_font</span> <span class="o">=</span> DejaVu Math TeX Gyre
+
+<span class="o">[</span>LEGEND<span class="o">]</span>
+<span class="nv">frame</span> <span class="o">=</span> On
+<span class="nv">font_size</span> <span class="o">=</span> <span class="m">15</span>
+<span class="nv">legend_font</span> <span class="o">=</span> DejaVu Math TeX Gyre
+<span class="nv">label_font_color</span> <span class="o">=</span> black
+</pre></div>
+</div>
+<p>As shown in the page <a class="reference internal" href="usage.html"><span class="doc">Using Photon</span></a>, you can then load directly Photon using this configuration with the -c
+conf.file option.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="graphics.html" class="btn btn-neutral" title="Available elements" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, R. Thomas.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

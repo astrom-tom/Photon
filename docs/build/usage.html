@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using VcatPy &mdash; VcatPy 0.1.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="VcatPy 0.1.1 documentation" href="index.html"/>
+        <link rel="next" title="Screenshots" href="screenshots.html"/>
+        <link rel="prev" title="VcatPy’s Documentation 0.1.1" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> VcatPy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using VcatPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#input-file-format">Input file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="screenshots.html">Screenshots</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">VcatPy</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Using VcatPy</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p><a class="reference external" href="https://www.python.org/downloads/release/python-360/"><img alt="python" src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg" /></a> <img alt="Python36" src="https://img.shields.io/badge/python-3.6-blue.svg" /> <a class="reference external" href="https://github.com/ellerbrock/open-source-badges/"><img alt="Opensource" src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" /></a> <a class="reference external" href="http://perso.crans.org/besson/LICENSE.html"><img alt="Licence" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a></p>
+<p><a class="reference external" href="https://matplotlib.org/"><img alt="matplotlib" src="https://img.shields.io/badge/poweredby-matplotlib-orange.svg" /></a> <a class="reference external" href="https://pypi.python.org/pypi/PyQt5"><img alt="PyQt5" src="https://img.shields.io/badge/poweredby-PyQt5-orange.svg" /></a> <a class="reference external" href="http://www.numpy.org/"><img alt="numpy" src="https://img.shields.io/badge/poweredby-numpy-orange.svg" /></a> <a class="reference external" href="https://www.scipy.org/"><img alt="scipy" src="https://img.shields.io/badge/poweredby-scipy-orange.svg" /></a></p>
+<div class="section" id="using-vcatpy">
+<h1>Using VcatPy<a class="headerlink" href="#using-vcatpy" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p><strong>The help</strong></p>
+<p>You start VcatPy from a terminal. The program comes with a help that you can display in your terminal using the help command.
+Use it like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>[user@machine]$ VcatPy - -help
+</pre></div>
+</div>
+<p>This command will display the help of the program:</p>
+<div class="highlight-shell"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span>   VCatPy V0.1, R. Thomas, <span class="m">2018</span>, ESO, This program comes with ABSOLUTELY NO WARRANTY<span class="p">;</span>
+   and is distributed under the GPLv3.0 Licence terms.See the version of this Licence
+   distributed along this code <span class="k">for</span> details.
+
+   positional arguments:
+   file                  Your catalog of data to visualize, this is mandatory
+                         <span class="o">(</span>positionnal argument<span class="o">)</span>
+
+   optional arguments:
+     -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+     -t, --header          To be used If a header is present in the catalog <span class="o">(</span><span class="c1">#A B</span>
+                               C D....<span class="o">)</span>, you just write <span class="s1">&#39;-t&#39;</span>. If you <span class="k">do</span> not use it,
+                               each column will be renames colX where X is the number
+                               of the column <span class="o">(</span>starting at <span class="m">1</span><span class="o">)</span>.
+     -c CONF, --conf CONF  Properties configuration file. If none is givenm the
+                               default configuration will be loaded
+</pre></div>
+</td></tr></table></div>
+<p>In details it means:</p>
+<ul>
+<li><p class="first">VcatPy must come with a file as first argument. This file is mandatory. If you do not give it VcatPy will complain (you can see below for the format of the file you can provide VcatPy with).</p>
+</li>
+<li><p class="first">Two other OPTIONALS arguments can be used:</p>
+<blockquote>
+<div><ul class="simple">
+<li>-t: if each column of your file as a header (e.g. a string at the top with the name of the column) you can ask VcatPy to read it using this argument. If you do not use it, the name of the columns will be col1, col2, ….coli…,colN.</li>
+<li>-c +configuration file: If you saved a customization configuration previously you can load it using this argument and giving the cuztomization configuration.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="input-file-format">
+<h1>Input file format<a class="headerlink" href="#input-file-format" title="Permalink to this headline">¶</a></h1>
+<p>For the current version VcatPy accept only <em>ascii</em> catalogs of columns. Some precisions:</p>
+<ul class="simple">
+<li>The catalog must contain at least 2 columns and 2 lines.</li>
+<li>Each line must contain the same number of column.</li>
+<li>If your catalog starts with a header the header must start with a hash ‘#’ and each column must be named.</li>
+</ul>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="screenshots.html" class="btn btn-neutral float-right" title="Screenshots" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="VcatPy’s Documentation 0.1.1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, R. Thomas.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
