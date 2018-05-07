@@ -39,7 +39,7 @@ from matplotlib.widgets import Cursor
 import matplotlib.colors as col
 import matplotlib
 import matplotlib.pyplot as plt
-matplotlib.use('Qt5Agg')
+#matplotlib.use('Qt5Agg')
 warnings.simplefilter(action='ignore', category=matplotlib.mplDeprecation)
             ####some matplotlib fixed parameters
 matplotlib.rcParams['savefig.dpi'] = 300
