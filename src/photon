@@ -39,13 +39,13 @@ from matplotlib.widgets import Cursor
 import matplotlib.colors as col
 import matplotlib
 import matplotlib.pyplot as plt
-#matplotlib.use('Qt5Agg')
 warnings.simplefilter(action='ignore', category=matplotlib.mplDeprecation)
-            ####some matplotlib fixed parameters
+
+####some matplotlib fixed parameters
 matplotlib.rcParams['savefig.dpi'] = 300
 matplotlib.rcParams['savefig.directory'] = ''
-params = {'text.latex.preamble' : [r'\usepackage{amsmath}']}
-matplotlib.rcParams.update(params)
+matplotlib.rdParams['savefig.format'] = 'eps'
+
 
 ####local imports
 import cli

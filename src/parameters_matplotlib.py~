@@ -31,7 +31,6 @@ from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as Navigatio
 from matplotlib.figure import Figure
 from matplotlib.widgets import Cursor
 import matplotlib.font_manager
-matplotlib.use('Qt5Agg')
 import warnings
 warnings.simplefilter(action='ignore', category=matplotlib.mplDeprecation)
 
