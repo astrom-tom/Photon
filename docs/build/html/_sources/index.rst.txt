@@ -6,7 +6,7 @@
 Photon v1.0 Documentation
 ===============================================
 
-|python| |Python36|  |Licence|
+|python| |Python36| |zenodo| |Licence|
 |matplotlib| |PyQt5| |numpy| |scipy| 
 
 .. |Licence| image:: https://img.shields.io/badge/License-GPLv3-blue.svg
@@ -14,6 +14,9 @@ Photon v1.0 Documentation
 
 .. |Opensource| image:: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
       :target: https://github.com/ellerbrock/open-source-badges/
+
+.. |zenodo| image:: https://zenodo.org/badge/132375021.svg
+   :target: https://zenodo.org/badge/latestdoi/132375021
 
 .. |python| image:: https://img.shields.io/badge/Made%20with-Python-1f425f.svg
     :target: https://www.python.org/downloads/release/python-360/
