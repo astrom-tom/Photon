@@ -52,7 +52,7 @@ Contents
 
 ----
 
-Photon is a GUI created to make simple 1D plot in python. It uses mainly matplotlib and PyQt5 and it has been build in the spirit of begin fully customizable. You can change fontstyle, fontsize, fontcolors, linewidth of the axes, thickness, etc...and see the changes directly in the plot. Once a customization is created, you can save it into a configuration file and reload it later when you open photon again. This allows you to keep the same customization for different plot. The main tool is a graphical user interface and it is started using a command line interface.
+Photon is a GUI created to make simple 1D plot in python. It uses mainly matplotlib and PyQt5 and it has been build in the spirit of being fully customizable. You can change fontstyle, fontsize, fontcolors, linewidth of the axes, thickness, etc...and see the changes directly in the plot. Once a customization is created, you can save it into a configuration file and reload it later when you open photon again. This allows you to keep the same customization for different plot. The main tool is a graphical user interface and it is started using a command line interface.
 
 
 ----

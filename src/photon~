@@ -44,7 +44,7 @@ warnings.simplefilter(action='ignore', category=matplotlib.mplDeprecation)
 ####some matplotlib fixed parameters
 matplotlib.rcParams['savefig.dpi'] = 300
 matplotlib.rcParams['savefig.directory'] = ''
-matplotlib.rdParams['savefig.format'] = 'eps'
+matplotlib.rcParams['savefig.format'] = 'eps'
 
 
 ####local imports
