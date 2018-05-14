@@ -6,7 +6,7 @@ Color = black
 Label_color = black 
 linewidth = 1
 LabelSize = 19
-Axis_label_font = DejaVu Math TeX Gyre
+Axis_label_font = C4059
 
 [TICKS]
 Minor = on 
@@ -18,11 +18,11 @@ Minor_width = 1
 Ticks_color = black
 Label_color = black
 Label_size = 19
-Ticks_label_font = DejaVu Math TeX Gyre
+Ticks_label_font = C0459
 
 [LEGEND]
 Frame = On
 font_size = 19
-Legend_font = DejaVu Math TeX Gyre
+Legend_font = C0459
 Label_font_color = black
 location = best

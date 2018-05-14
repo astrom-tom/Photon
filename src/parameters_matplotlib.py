@@ -615,7 +615,11 @@ def fonts(grid, win, plot, figure, conf):
     for i in names:  ###fill it
         fontlab_combo.addItem(i)
 
-    from_conf = numpy.where(names == conf.axis['Axis_label_font'])[0][0]
+    fonts = numpy.where(names == conf.axis['Axis_label_font'])
+    if len(fonts[0]) == 0:
+        from_conf = 0
+    else:
+        from_conf = fonts[0][0]
     fontlab_combo.setCurrentIndex(from_conf) ##set default
 
     ####font ticks
@@ -626,7 +630,12 @@ def fonts(grid, win, plot, figure, conf):
     grid.addWidget(fticks_combo, 21, 1, 1, 1)
     for i in names:  ###fill it
         fticks_combo.addItem(i)
-    from_conf = numpy.where(names == conf.ticks['Ticks_label_font'])[0][0]
+
+    fonts = numpy.where(names == conf.ticks['Ticks_label_font'])
+    if len(fonts[0]) == 0:
+        from_conf = 0
+    else:
+        from_conf = fonts[0][0]
     fticks_combo.setCurrentIndex(from_conf) ##set default
 
     ###load default parameters
@@ -748,7 +757,12 @@ def legend(grid, win, plot, figure, conf):
     grid.addWidget(flegend_combo, 26, 1, 1, 1)
     for i in names:  ###fill it
         flegend_combo.addItem(i)
-    from_conf = numpy.where(names == conf['Legend_font'])[0][0]
+    
+    fonts = numpy.where(names == conf['Legend_font'])
+    if len(fonts[0]) == 0:
+        from_conf = 0
+    else:
+        from_conf = fonts[0][0]
     flegend_combo.setCurrentIndex(from_conf) ##set default
 
 
@@ -760,8 +774,14 @@ def legend(grid, win, plot, figure, conf):
     grid.addWidget(leg_col_combo, 27, 1, 1, 2)
     for i in allcolors:  ###fill it
         leg_col_combo.addItem(i)
-    from_conf = numpy.where(allcolors == conf['Label_font_color'])[0][0]
+
+    fonts = numpy.where(names == conf['Label_font_color'])
+    if len(fonts[0]) == 0:
+        from_conf = 0
+    else:
+        from_conf = fonts[0][0]
     leg_col_combo.setCurrentIndex(from_conf) ##set default
+
 
     ####location
     leg_loc = QLabel('Legend location:')  ###label
