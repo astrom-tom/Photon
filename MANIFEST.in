@@ -1,0 +1,8 @@
+include README.md
+include LICENSE
+include photon/logo.png
+include photon/properties.conf
+include photon/docs/*
+include photon/docs/_images/*
+include photon/docs/_sources/*
+include photon/docs/_static/*
