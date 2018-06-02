@@ -49,7 +49,13 @@ For the moment, the only way to use Photon is to download the source code from t
 * Scipy v1.0.1: Some usefull function for smoothing / images
 * fitsio v0.9.10: Fits file handling library
 
-Unless python3.6 is your main python, you have to edit one source file: 'src/photon'. This file is the main source code of photon and begin with the shebang: a line starting with '#!' followed by the path of the python to use. This allows to not have to type 'python' each time. Change this path accordingly to your python3.6 path. Once done you can add the src directory to your path and start using it! Go to the next section to learn how to use it!
+Photon is available in the pypi test repository. To install it:
+
+.. code-block:: shell
+     :linenos:
+
+     pip install --extra-index-url https://test.pypi.org/simple photon_plot --user
+
 
 The help
 ~~~~~~~~
@@ -57,53 +63,48 @@ You start photon from a terminal. The program comes with a help that you can dis
 Use it like this::
 
 
-           [user@machine]$ photon - -help
+           [user@machine]$ photon --help
 
-This command will display the help of the program:
+This command will display the help of the program::
 
+      usage: photon [-h] [-f FILE] [-c CUSTOM] [-p PLOT] [-w WIDTH] [-d] [--version]
 
-.. code-block:: shell
-     :linenos:
+      Photon, R. Thomas, 2018, This program comes with ABSOLUTELY NO WARRANTY; and
+      is distributed under the GPLv3.0 Licence terms.See the version of this Licence
+      distributed along this code for details. website: https://github.com/astrom-
+      tom/Photon
 
-	Photon V0.1, R. Thomas, 2018, ESO, This program comes with ABSOLUTELY NO WARRANTY; 
-	and is distributed under the GPLv3.0 Licence terms.See the version of this Licence 
-	distributed along this code for details.
-
-	positional arguments:
-	file                  Your catalog of data to visualize, this is mandatory
-    		              (positionnal argument)
-
-	optional arguments:
-	  -h, --help            show this help message and exit	
-	  -t, --header          To be used If a header is present in the catalog (#A B
-    			            C D....), you just write '-t'. If you do not use it,
-    			            each column will be renames colX where X is the number
-    			            of the column (starting at 1).
-	  -c CONF, --conf CONF  Properties configuration file. If none is givenm the
-    			            default configuration will be loaded
-	  -w WIDTH, --width WIDTH
-                        Width of the GUI, default = 780
-
+	  -h, --help                show this help message and exit	
+	  -f FILE, --file FILE      Your catalog of data to visualize, this is mandatory if 
+                                    you do not use -p option
+	  -p PLOT, --plot PLOT      Saved plot configuration file, if none is given you
+                                    must provide a file
+	  -c CONF, --conf CONF      Properties configuration file. If none is givenm the
+                                    default configuration will be loaded
+	  -w WIDTH, --width WIDTH   Width of the GUI, default = 780
+          --version                 display version of photon
 
 In details it means:
 
-* Photon must come with a file as first argument. This file is mandatory. If you do not give it Photon will complain (you can see below for the format of the file you can provide photon with).
-* Three other OPTIONALS arguments can be used:
+* Photon must come with a file as first argument OR configuration plot. If you do not give Photon one of these it will complain (you can see below for the format of the file you can provide photon with).
+* Few arguments can be used:
+	
+	* -f: this is a catalog you want to display
+	* -p: Plot configuration. This plot configuration iscreated using the save button in the GUI. It allows you to reload a plot. 
+	* -c: Custom configuration file: If you saved a customization configuration previously you can load it using this argument and giving the cuztomization configuration.
+	* -w: width of the window: The GUI is not resizable. Which means that the size of the plot is pre-fedined. By default the width of the window is sized at 780. Using this option, (e.g. -w 1080) will resize the GUI with a width of 1080.
+	* -d: This will open the internal documentation
+	* --version: Display in terminal the current version of the software
 
-	* -t: if each column of your file as a header (e.g. a string at the top with the name of the column) you can ask Photon to read it using this argument. If you do not use it, the name of the columns will be col1, col2, ....coli...,colN.
-	* -c +configuration file: If you saved a customization configuration previously you can load it using this argument and giving the cuztomization configuration.
-	* -w +width of the window: The GUI is not resizable. Which means that the size of the plot is pre-fedined. By default the width of the window is sized at 780. Using this option, (e.g. -w 1080) will resize the GUI with a width of 1080.
-
-
-Input file format
-~~~~~~~~~~~~~~~~~
+Catalog format
+~~~~~~~~~~~~~~
 
 For the current version Photon accept only *ascii* catalogs of columns and *fits* image. Some precisions:
 
 * The catalog must contain at least 2 columns and 2 lines.
 * Each line must contain the same number of column.
 * If your catalog starts with a header the header must start with a hash '#' and each column must be named.
-* When plotting images, The fits handling library that is used in Photon is called 'fistio'. Your image must contain only one table for the image. The fitsio command that is used is 'fistio.read(image.fits)'.
+* When plotting images, The fits handling library that is used in Photon is called 'fitsio'. Your image must contain only one table for the image. The fitsio command that is used is 'fistio.read('image.fits')'.
 
 
 The Graphical User Interface
@@ -134,10 +135,10 @@ When clicking on 'Add element in plot' you have these different choices:
  * Image
  * Image / new file
 
-All the plotting elements are described here: :doc:`graphics`. As you can see some plotting elements are repeated (e.g. 'line' and 'line / new file'). As you start Photon with a particular file it can be useful to be able to load data from another file. If this is the case you can use 'XX / new file' and Photon will open dialog window to choose another file to use in photon.
+All the plotting elements are described here: :doc:`graphics`. As you can see some plotting elements are repeated (e.g. 'line' and 'line / new file'). As you start Photon with a particular file it can be useful to be able to load data from another file. If this is the case you can use 'XX / new file' and Photon will open dialog window to choose another file to use in photon. When loading a pre-existing plot configuration, if you want to add more data to your plot, you will only have the 'New file' choices.
 
 
-.. figure:: ./example/empy.png
+.. figure:: ./example/frontexample.png
     :width: 750px
     :align: center
     :alt: GUI

@@ -88,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Using Photon</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Available elements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom.html">Available Graphical customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
 </ul>
 
             
@@ -277,7 +278,7 @@ Finally you can control the tickness of the errorbars and the size of the errorb
 <p>The figure on the right shows the widget that will appear when you want to add straight lines.</p>
 <p>The first widget is a multiple choice button where you can choose between <strong>vertical</strong>, <strong>horizontal</strong> and <strong>diagonal</strong> lines.
 As usual the delete button allows you to remove the strip from the plot and also all the associated widgets in the graphic element panel.</p>
-<p>The widget <em>coordinates</em> require one or two number. If you choose between ‘horizontal’ and ‘vertical’ lines, only one number will be required. If you choose ‘diagonal’ it will draw the line x=y and you have to give the limits on the plot in the format ‘xmin, xmax’.
+<p>The widget <em>coordinates</em> require two or three numbers. If you choose between ‘horizontal’ and ‘vertical’ lines, three numbers will be required. For example, if you choose vertical, you will have to give the X-coodinate, and the y-coordinate indicating the limits of the line you want to draw. If you choose ‘diagonal’ it will draw the line x=y and you have to give the limits on the plot in the format ‘xmin, xmax’.
 The widget <em>color</em> allows you to choose the color you want.
 The widget <em>linestyle</em> change the linestyle of the line.
 And finally the <em>slide bar</em> will help you to change the tickness of the line.</p>
@@ -308,6 +309,115 @@ It can use Latex font. Then the coordinates field (coming by default at ‘0.3, 
 must give the coordinates of the bottom left corner of the text. The format is ‘x,y’.
 Then, the slidebar allows you to play with the size of the text.
 Finally the angle (from 0 degree to 360) allows one to rotate the text.</p>
+</div>
+<div class="section" id="save-a-plot-configuration">
+<h2>Save a plot configuration<a class="headerlink" href="#save-a-plot-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Once your plot is finalized you can save all the configuration by clicking on the button ‘save plot’ (at the top of the Grapical element panel).
+Doing so will create a configuration file containing all your graphical elements input. Later on you can use this configuration plot and load it back to
+photon using the ‘-p’ argument. It will load all the widget and you will be able to modify your plot from where you stopped.
+An example of such plot looks like this:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>Types<span class="o">]</span>
+<span class="nv">line</span> <span class="o">=</span> <span class="m">2</span>
+<span class="nv">scatter</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">error</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">text</span> <span class="o">=</span> <span class="m">0</span>
+<span class="nv">segments</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">image</span> <span class="o">=</span> <span class="m">0</span>
+<span class="nv">diag</span> <span class="o">=</span> <span class="m">0</span>
+<span class="nv">hist</span> <span class="o">=</span> <span class="m">0</span>
+<span class="nv">strip</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">xmin</span> <span class="o">=</span> -1.4095964382872301
+<span class="nv">xmax</span> <span class="o">=</span> <span class="m">17</span>.594015772257148
+<span class="nv">ymin</span> <span class="o">=</span> -1.0603746193287176
+<span class="nv">ymax</span> <span class="o">=</span> <span class="m">18</span>.55164828289531
+<span class="nv">x_label</span> <span class="o">=</span> Xlabel
+<span class="nv">y_label</span> <span class="o">=</span> Ylabel
+
+<span class="o">[</span>line_1<span class="o">]</span>
+<span class="nv">file</span> <span class="o">=</span> text.txt
+<span class="nv">label</span> <span class="o">=</span> Line plot number <span class="m">1</span>
+<span class="nv">zorder</span> <span class="o">=</span> <span class="m">2</span>
+<span class="nv">x</span> <span class="o">=</span> A
+<span class="nv">y</span> <span class="o">=</span> A
+<span class="nv">color</span> <span class="o">=</span> red
+<span class="nv">style</span> <span class="o">=</span> -
+<span class="nv">color_fb</span> <span class="o">=</span> <span class="m">0</span>.5
+<span class="nv">fb</span> <span class="o">=</span> No
+<span class="nv">bp</span> <span class="o">=</span> No
+<span class="nv">thickness</span> <span class="o">=</span> <span class="m">30</span>
+<span class="nv">smooth</span> <span class="o">=</span> <span class="m">0</span>
+
+<span class="o">[</span>line_2<span class="o">]</span>
+<span class="nv">file</span> <span class="o">=</span> /media/sf_Documents/text2.txt
+<span class="nv">label</span> <span class="o">=</span> Line plot number <span class="m">1</span>
+<span class="nv">zorder</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">x</span> <span class="o">=</span> A
+<span class="nv">y</span> <span class="o">=</span> B
+<span class="nv">color</span> <span class="o">=</span> black
+<span class="nv">style</span> <span class="o">=</span> --
+<span class="nv">color_fb</span> <span class="o">=</span> <span class="m">0</span>.5
+<span class="nv">fb</span> <span class="o">=</span> No
+<span class="nv">bp</span> <span class="o">=</span> No
+<span class="nv">thickness</span> <span class="o">=</span> <span class="m">10</span>
+<span class="nv">smooth</span> <span class="o">=</span> <span class="m">0</span>
+
+<span class="o">[</span>scat_1<span class="o">]</span>
+<span class="nv">file</span> <span class="o">=</span> /media/sf_Documents/text2.txt
+<span class="nv">label</span> <span class="o">=</span> scatter plot number <span class="m">1</span>
+<span class="nv">zorder</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">x</span> <span class="o">=</span> A
+<span class="nv">y</span> <span class="o">=</span> B
+<span class="nv">color</span> <span class="o">=</span> green
+<span class="nv">marker</span> <span class="o">=</span> D
+<span class="nv">empty</span> <span class="o">=</span> Yes
+<span class="nv">thickness</span> <span class="o">=</span> <span class="m">10</span>
+<span class="nv">transparency</span> <span class="o">=</span> <span class="m">10</span>
+<span class="nv">size</span> <span class="o">=</span> <span class="m">100</span>
+
+<span class="o">[</span>stra_1<span class="o">]</span>
+<span class="nv">dir</span> <span class="o">=</span> Vertical
+<span class="nv">color</span> <span class="o">=</span> black
+<span class="nv">style</span> <span class="o">=</span> -
+<span class="nv">zorder</span> <span class="o">=</span> -1
+<span class="nv">thickness</span> <span class="o">=</span> <span class="m">44</span>
+<span class="nv">coor</span> <span class="o">=</span> <span class="m">7</span>, <span class="m">1</span>,8
+
+<span class="o">[</span>stri_1<span class="o">]</span>
+<span class="nv">dir</span> <span class="o">=</span> Vertical
+<span class="nv">color</span> <span class="o">=</span> red
+<span class="nv">zorder</span> <span class="o">=</span> <span class="m">0</span>
+<span class="nv">transparency</span> <span class="o">=</span> <span class="m">100</span>
+<span class="nv">coor</span> <span class="o">=</span> <span class="m">0</span>.3, <span class="m">0</span>.7
+
+<span class="o">[</span>erro_1<span class="o">]</span>
+<span class="nv">file</span> <span class="o">=</span> text.txt
+<span class="nv">label</span> <span class="o">=</span> error plot number <span class="m">0</span>
+<span class="nv">zorder</span> <span class="o">=</span> <span class="m">2</span>
+<span class="nv">x</span> <span class="o">=</span> A
+<span class="nv">y</span> <span class="o">=</span> A
+<span class="nv">xerrp</span> <span class="o">=</span> A
+<span class="nv">xerrm</span> <span class="o">=</span> A
+<span class="nv">yerrp</span> <span class="o">=</span> A
+<span class="nv">yerrm</span> <span class="o">=</span> A
+<span class="nv">color</span> <span class="o">=</span> black
+<span class="nv">marker</span> <span class="o">=</span> .
+<span class="nv">empty</span> <span class="o">=</span> Yes
+<span class="nv">transparency</span> <span class="o">=</span> <span class="m">10</span>
+<span class="nv">size</span> <span class="o">=</span> <span class="m">15</span>
+<span class="nv">barsize</span> <span class="o">=</span> <span class="m">10</span>
+<span class="nv">capsize</span> <span class="o">=</span> <span class="m">50</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">It is strongly suggested not to modify this file. As photon reads it, it might have trouble to reload your configuration if the file was modified by hand
+.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">As you might see, for each type of plot the donfiguration gives the name of the file to be used.
+It will write the full path of the file with respect to the directory where you started photon.</p>
+</div>
 </div>
 </div>
 
@@ -374,9 +484,7 @@ Finally the angle (from 0 degree to 360) allows one to rotate the text.</p>
 
   <script type="text/javascript">
       jQuery(function () {
-          
-          SphinxRtdTheme.Navigation.enableSticky();
-          
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script> 
 

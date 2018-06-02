@@ -34,7 +34,7 @@
 
 
 Available elements
-------------------
+******************
 
 When clicking on 'Add element in plot' you have these different choices:
 
@@ -55,7 +55,8 @@ When clicking on 'Add element in plot' you have these different choices:
 
 
 Line plots
-~~~~~~~~~~
+==========
+
 .. figure:: example/lineplot.png
     :align: right
     :figwidth: 300px
@@ -80,7 +81,7 @@ Finally, the spinbox with number allows you to smooth your line plot by a gaussi
 
 
 Scatter plots
-~~~~~~~~~~~~~
+=============
 .. figure:: example/scatterplot.png
     :align: right
     :figwidth: 300px
@@ -109,7 +110,7 @@ The two last slidebars make you control the tickness of the line drawing the mar
 
 
 Histogram plots
-~~~~~~~~~~~~~~~
+===============
 .. figure:: example/histplot.png
     :align: right
     :figwidth: 300px
@@ -136,7 +137,7 @@ Finally, a check box *norm* allows one to normalise the histogram. It will recom
 
 
 Errorbar plots
-~~~~~~~~~~~~~~~
+==============
 .. figure:: example/error.png
     :align: right
     :figwidth: 300px
@@ -164,7 +165,7 @@ Finally you can control the tickness of the errorbars and the size of the errorb
 
 
 Image plots
-~~~~~~~~~~~~~~~
+===========
 .. figure:: example/image.png
     :align: right
     :figwidth: 300px
@@ -183,7 +184,7 @@ The last 3 lines allows you to plot contours over the image. To use them you hav
 
 
 Straight lines
-~~~~~~~~~~~~~~
+==============
 .. figure:: example/straightline.png
     :align: right
     :figwidth: 300px
@@ -196,13 +197,13 @@ The figure on the right shows the widget that will appear when you want to add s
 The first widget is a multiple choice button where you can choose between **vertical**, **horizontal** and **diagonal** lines. 
 As usual the delete button allows you to remove the strip from the plot and also all the associated widgets in the graphic element panel.
 
-The widget *coordinates* require one or two number. If you choose between 'horizontal' and 'vertical' lines, only one number will be required. If you choose 'diagonal' it will draw the line x=y and you have to give the limits on the plot in the format 'xmin, xmax'. 
+The widget *coordinates* require two or three numbers. If you choose between 'horizontal' and 'vertical' lines, three numbers will be required. For example, if you choose vertical, you will have to give the X-coodinate, and the y-coordinate indicating the limits of the line you want to draw. If you choose 'diagonal' it will draw the line x=y and you have to give the limits on the plot in the format 'xmin, xmax'. 
 The widget *color* allows you to choose the color you want.
 The widget *linestyle* change the linestyle of the line.
 And finally the *slide bar* will help you to change the tickness of the line.
 
 Spans
-~~~~~
+=====
 .. figure:: example/span.png
     :align: right
     :figwidth: 300px
@@ -220,7 +221,7 @@ And finally the slide bar change the transparency of the strip.
 
 
 Text
-~~~~
+====
 .. figure:: example/text.png
     :align: right
     :figwidth: 300px
@@ -235,3 +236,116 @@ It can use Latex font. Then the coordinates field (coming by default at '0.3, 0.
 must give the coordinates of the bottom left corner of the text. The format is 'x,y'. 
 Then, the slidebar allows you to play with the size of the text. 
 Finally the angle (from 0 degree to 360) allows one to rotate the text.
+
+
+Save a plot configuration
+=========================
+Once your plot is finalized you can save all the configuration by clicking on the button 'save plot' (at the top of the Grapical element panel).
+Doing so will create a configuration file containing all your graphical elements input. Later on you can use this configuration plot and load it back to 
+photon using the '-p' argument. It will load all the widget and you will be able to modify your plot from where you stopped.
+An example of such plot looks like this:
+
+.. code-block:: shell
+
+    [Types]
+    line = 2
+    scatter = 1
+    error = 1
+    text = 0
+    segments = 1
+    image = 0
+    diag = 0
+    hist = 0
+    strip = 1
+    xmin = -1.4095964382872301
+    xmax = 17.594015772257148
+    ymin = -1.0603746193287176
+    ymax = 18.55164828289531
+    x_label = Xlabel
+    y_label = Ylabel
+
+    [line_1]
+    file = text.txt
+    label = Line plot number 1
+    zorder = 2
+    x = A
+    y = A
+    color = red
+    style = -
+    color_fb = 0.5
+    fb = No
+    bp = No
+    thickness = 30
+    smooth = 0
+
+    [line_2]
+    file = /media/sf_Documents/text2.txt
+    label = Line plot number 1
+    zorder = 1
+    x = A
+    y = B
+    color = black
+    style = --
+    color_fb = 0.5
+    fb = No
+    bp = No
+    thickness = 10
+    smooth = 0
+
+    [scat_1]
+    file = /media/sf_Documents/text2.txt
+    label = scatter plot number 1
+    zorder = 1
+    x = A
+    y = B
+    color = green
+    marker = D
+    empty = Yes
+    thickness = 10
+    transparency = 10
+    size = 100
+
+    [stra_1]
+    dir = Vertical
+    color = black
+    style = -
+    zorder = -1
+    thickness = 44
+    coor = 7, 1,8
+
+    [stri_1]
+    dir = Vertical
+    color = red
+    zorder = 0
+    transparency = 100
+    coor = 0.3, 0.7
+
+    [erro_1]
+    file = text.txt
+    label = error plot number 0
+    zorder = 2
+    x = A
+    y = A
+    xerrp = A
+    xerrm = A
+    yerrp = A
+    yerrm = A
+    color = black
+    marker = .
+    empty = Yes
+    transparency = 10
+    size = 15
+    barsize = 10
+    capsize = 50
+
+
+
+.. warning::
+
+    It is strongly suggested not to modify this file. As photon reads it, it might have trouble to reload your configuration if the file was modified by hand 
+    .
+.. warning::
+
+    As you might see, for each type of plot the donfiguration gives the name of the file to be used. 
+    It will write the full path of the file with respect to the directory where you started photon. 
+

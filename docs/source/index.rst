@@ -36,7 +36,7 @@ Photon v1.0 Documentation
 .. |scipy| image:: https://img.shields.io/badge/poweredby-scipy-orange.svg
    :target: https://www.scipy.org/
 
-.. figure:: ./example/photon.png
+.. figure:: ./example/fulllogo.png
     :width: 750px
     :align: center
     :alt: GUI

@@ -6,7 +6,7 @@
 Photon v1.0 Documentation
 ===============================================
 
-|python| |Python36|  |Licence|
+|python| |Python36| |zenodo| |Licence|
 |matplotlib| |PyQt5| |numpy| |scipy| 
 
 .. |Licence| image:: https://img.shields.io/badge/License-GPLv3-blue.svg
@@ -14,6 +14,9 @@ Photon v1.0 Documentation
 
 .. |Opensource| image:: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
       :target: https://github.com/ellerbrock/open-source-badges/
+
+.. |zenodo| image:: https://zenodo.org/badge/132375021.svg
+   :target: https://zenodo.org/badge/latestdoi/132375021
 
 .. |python| image:: https://img.shields.io/badge/Made%20with-Python-1f425f.svg
     :target: https://www.python.org/downloads/release/python-360/
@@ -52,7 +55,7 @@ Contents
 
 ----
 
-Photon is a GUI created to make simple 1D plot in python. It uses mainly matplotlib and PyQt5 and it has been build in the spirit of begin fully customizable. You can change fontstyle, fontsize, fontcolors, linewidth of the axes, thickness, etc...and see the changes directly in the plot. Once a customization is created, you can save it into a configuration file and reload it later when you open photon again. This allows you to keep the same customization for different plot. The main tool is a graphical user interface and it is started using a command line interface.
+Photon is a GUI created to make simple 1D plot in python. It uses mainly matplotlib and PyQt5 and it has been build in the spirit of being fully customizable. You can change fontstyle, fontsize, fontcolors, linewidth of the axes, thickness, etc...and see the changes directly in the plot. Once a customization is created, you can save it into a configuration file and reload it later when you open photon again. This allows you to keep the same customization for different plot. The main tool is a graphical user interface and it is started using a command line interface.
 
 
 ----
