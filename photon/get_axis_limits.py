@@ -34,10 +34,34 @@ def get_axis_limits(loaded_plot, full):
         
         ##then we try from the axis widgets 
         try:
-            xmin = float(full.properties.parentWidget().findChildren(QLineEdit, 'xmin')[0].text())
-            xmax = float(full.properties.parentWidget().findChildren(QLineEdit, 'xmax')[0].text())
-            ymin = float(full.properties.parentWidget().findChildren(QLineEdit, 'ymin')[0].text())
-            ymax = float(full.properties.parentWidget().findChildren(QLineEdit, 'ymax')[0].text())
+            try:
+                xmin = float(full.properties.parentWidget().findChildren(QLineEdit, 'xmin')[0].text())
+                xmins = 'ok'
+            except:
+                xmin = x1
+                xmins = 'nok'
+
+            try:
+                xmax = float(full.properties.parentWidget().findChildren(QLineEdit, 'xmax')[0].text())
+                xmaxs = 'ok'
+            except:
+                xmax = x2
+                xmaxs = 'nok'
+
+            try:
+                ymin = float(full.properties.parentWidget().findChildren(QLineEdit, 'ymin')[0].text())
+                ymins = 'ok'
+            except:
+                ymin = y1
+                ymins = 'nok'
+
+            try:
+                ymax = float(full.properties.parentWidget().findChildren(QLineEdit, 'ymax')[0].text())
+                ymaxs = 'ok'
+            except:
+                ymax = y2
+                ymaxs = 'nok'
+            
             return xmin, xmax, ymin, ymax  
 
         except:

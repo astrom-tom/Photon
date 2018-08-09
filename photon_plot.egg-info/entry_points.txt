@@ -1,0 +1,3 @@
+[gui_scripts]
+photon = photon.__main__:main
+

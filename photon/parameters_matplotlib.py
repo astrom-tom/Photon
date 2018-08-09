@@ -109,16 +109,34 @@ def axis_lim_event(grid, win, plot, figure, wid1, wid2, wid3, wid4, logx, logy, 
     figure      Figure, obj
     wid         QComboBox widget
     '''
+
+    ##get the current limit
+    x1, x2 = plot.get_xlim()
+    y1, y2 = plot.get_ylim()
+
     ##get texts
     try:
         xmin = float(wid1.text())
-        xmax = float(wid2.text())
-        ymin = float(wid3.text())
-        ymax = float(wid4.text())
-        ###update plot limits
-        plot.axis([xmin, xmax, ymin, ymax])
     except:
-        pass
+        xmin = x1
+
+    try: 
+        xmax = float(wid2.text())
+    except:
+        xmax = x2
+
+    try:
+        ymin = float(wid3.text())
+    except:
+        ymin = y1
+
+    try:
+        ymax = float(wid4.text())
+    except:
+        ymax = y2
+
+    print(xmin, xmax, ymin, ymax)
+    plot.axis([xmin, xmax, ymin, ymax])
         
     if logx.isChecked():
         plot.set_xscale('log')

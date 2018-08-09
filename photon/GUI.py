@@ -263,7 +263,8 @@ class Main_window(QWidget):
         configuration.
         '''
         save_file = QFileDialog.getSaveFileName(self, "Save Files")[0]
-        write.save(save_file, self.config)
+        if save_file != '':
+            write.save(save_file, self.config)
 
 
     def changeylabl(self):
@@ -694,7 +695,7 @@ class Main_window(QWidget):
             self.comboY.addItem(columns[i])
         self.comboY.setObjectName("erro_%s_Y"%self.errorindex)
         index = numpy.where(columns == conf['y'])[0][0]
-        self.comboX.setCurrentIndex(index)
+        self.comboY.setCurrentIndex(index)
         self.plot_index += 1
 
 
