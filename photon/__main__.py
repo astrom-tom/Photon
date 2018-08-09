@@ -14,6 +14,9 @@
 ###import libraries
 import sys
 import os
+from subprocess import call
+import socket
+
 
 ##third parties
 from PyQt5.QtWidgets import QApplication
@@ -42,11 +45,27 @@ def main():
     print('\t\t\t      R. Thomas -2018-')
 
     if args.docs == True:
-        web = input('what is the command to open web browser?')
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        index_doc = os.path.join(dir_path, 'docs/index.html')
-        os.system('%s %s'%(web, index_doc))
-        sys.exit()
+
+        ##check if there is any internet connection
+        try:
+            socket.setdefaulttimeout(3)
+            socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(("8.8.8.8", 53))
+            url = info.__website__
+        ##if not we use the local documentation distributed along the software
+        except: 
+            print('No internet connection detected, open local documentation')
+            dir_path = os.path.dirname(os.path.realpath(__file__))
+            url = os.path.join(dir_path, 'docs/build/html/index.html')
+
+        for i in ['falkon', 'firefox', 'open', 'qupzilla', 'chromium', 'google-chrome']:
+            ##we check if the command exist in the system
+            exist = call(['which', i])
+            if exist == 0:
+                ##if it does then we use it to load the documentation
+                call([i, url])
+                ##and we stop the loop
+                sys.exit()
+                break
 
     if args.plot == None and args.file == None:
         print('\n\t No file not plot configuration given...exiting photon...\n\

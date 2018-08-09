@@ -135,7 +135,6 @@ def axis_lim_event(grid, win, plot, figure, wid1, wid2, wid3, wid4, logx, logy, 
     except:
         ymax = y2
 
-    print(xmin, xmax, ymin, ymax)
     plot.axis([xmin, xmax, ymin, ymax])
         
     if logx.isChecked():

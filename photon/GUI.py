@@ -337,20 +337,25 @@ class Main_window(QWidget):
                 self.add_scatter(self.args.file)
             if typ == 'scatter / new file':
                 inputfile = self.browse()
-                self.add_scatter(inputfile)
+                if inputfile != None:
+                    self.add_scatter(inputfile)
             if typ == 'line':
                 self.add_line(self.args.file)
             if typ == 'line / new file':
                 inputfile = self.browse()
-                self.add_line(inputfile)
+                if inputfile != None:
+                    self.add_line(inputfile)
             if typ == 'histogram':
                 self.add_hist(self.args.file)
             if typ == 'histogram / new file':
                 inputfile = self.browse()
-                self.add_hist(inputfile)
+                if inputfile != None:
+                    self.add_hist(inputfile)
+
             if typ == 'Error / New file':
                 inputfile = self.browse()
-                self.add_error(inputfile)
+                if inputfile != None:
+                    self.add_error(inputfile)
             if typ == 'Error':
                 self.add_error(self.args.file)
             if typ == 'straight-line':
@@ -363,7 +368,8 @@ class Main_window(QWidget):
                 self.add_image(self.args.file)
             if typ == 'Image / New file':
                 inputfile = self.browse(args.file)
-                self.add_image()
+                if inputfile != None:
+                    self.add_image()
 
 
     def browse(self):
@@ -373,7 +379,7 @@ class Main_window(QWidget):
         new_file = QFileDialog.getOpenFileName(self, "Find Files")[0]
         if new_file == '':
             new_file = self.args.file
-        return new_file
+            return new_file
 
     def add_image(self, conf):
         '''
@@ -787,8 +793,9 @@ class Main_window(QWidget):
         self.errcombomarkers = QComboBox(self)
         for i in finalmarkers:
             self.errcombomarkers.addItem(str(i))
-        index = numpy.where(finalmarkers == conf['marker'])[0][0]
+        index = numpy.where(numpy.array(finalmarkers) == conf['marker'])[0][0]
         self.errcombomarkers.setObjectName("erro_%s_marker"%self.errorindex)
+        self.errcombomarkers.setCurrentIndex(index)
         self.plotarea.addWidget(self.errcombomarkers, self.plot_index, 1, 1, 1)
         self.plot_index += 1
         
@@ -2492,7 +2499,7 @@ class Main_window(QWidget):
         self.combomarkers = QComboBox(self)
         for i in finalmarkers:
             self.combomarkers.addItem(str(i))
-        index = numpy.where(finalmarkers == conf['marker'])[0][0]
+        index = numpy.where(numpy.array(finalmarkers) == conf['marker'])[0][0]
         self.combomarkers.setObjectName("scat_%s_marker"%self.scatterindex)
         self.combomarkers.setCurrentIndex(index)
         self.plotarea.addWidget(self.combomarkers, self.plot_index, 1, 1, 1)
