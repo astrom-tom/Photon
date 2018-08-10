@@ -18,7 +18,7 @@ setup(
       "scipy >= 1.0.1",
       "numpy >=1.14.2",
       "matplotlib >= 2.2.2",
-      "fitsio >= 0.9.11",
+      "astropy >= 3.0.2",
       "Pillow >=5.1.0",
    ],
    include_package_data=True,

@@ -49,6 +49,7 @@ def save(filesave, plot):
     plotconfig.set('Types', 'diag', str(plot.imageindex))
     plotconfig.set('Types', 'hist', str(plot.histindex))
     plotconfig.set('Types', 'strip', str(plot.strip_index))
+    plotconfig.set('Types', 'band', str(plot.band_index))
     plotconfig.set('Types', 'xmin', str(plot.plot.get_xlim()[0]))
     plotconfig.set('Types', 'xmax', str(plot.plot.get_xlim()[1]))
     plotconfig.set('Types', 'ymin', str(plot.plot.get_ylim()[0]))
@@ -65,6 +66,7 @@ def save(filesave, plot):
     config = save_hist(plot, config)
     config = save_error(plot, config)
     config = save_image(plot, config)
+    config = save_band(plot, config)
     
     with open(filesave, 'w') as myconfig:
         config.write(myconfig)
@@ -683,6 +685,63 @@ def save_image(plot, plotconfig):
                 sm = j.value()
                 plotconfig.set('%s_%s'%(typeplot, k+1), 'contour_size', str(sm))
  
+        k+=1
+    return plotconfig
+
+def save_band(plot, plotconfig):
+
+    typeplot = 'band'
+
+    #####check the index that are left
+    idents = []
+    name = plot.plotarea.parentWidget().findChildren(QLabel)
+    for j in name:
+        if j.objectName()[:4] == 'band' and j.objectName()[-9:] == 'labelfile':
+            ident = int(j.objectName()[5:6])
+            idents.append(ident)
+
+
+    plotconfig.set('Types', 'band', str(len(idents)))
+    k=0
+    for i in idents:
+        ##create the section in the configuration
+        plotconfig.add_section('%s_%s'%(typeplot, k+1))
+
+        ##filename
+        name = plot.plotarea.parentWidget().findChildren(QLabel)
+        for j in name:
+            if j.objectName() == 'band_%s_labelfile'%(i):
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'file', j.text())
+        ###retrieve the label of the plot
+        Edits = plot.plotarea.parentWidget().findChildren(QLineEdit)
+        for j in Edits:
+            if j.objectName() == 'band_%s_label'%str(i):
+               label = j.text()  
+               plotconfig.set('%s_%s'%(typeplot, k+1), 'label', label)
+            if j.objectName() == 'band_%s_zorder'%str(i):
+               zorder = j.text()
+               plotconfig.set('%s_%s'%(typeplot,k+1), 'zorder', zorder)
+
+
+        ###retrieve combo boxes
+        combo = plot.plotarea.parentWidget().findChildren(QComboBox)
+        for j in combo:
+            if j.objectName() == 'band_%s_X'%(i):
+                X = j.currentText() 
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'X', X)
+            if j.objectName() == 'band_%s_Y1'%(i):
+                Y = j.currentText()
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'Y1', Y)
+            if j.objectName() == 'band_%s_Y2'%(i):
+                Y = j.currentText()
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'Y2', Y) 
+            if j.objectName() == 'band_%s_bcolor'%(i):
+                color = j.currentText()
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'Color', color)
+            #if j.objectName() == 'band_%s_hatchband'%(i):
+            #    marker = j.currentText()
+            #    plotconfig.set('%s_%s'%(typeplot, k+1), 'hatch', marker)
+
         k+=1
     return plotconfig
 

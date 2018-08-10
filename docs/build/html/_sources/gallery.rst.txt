@@ -62,5 +62,10 @@ Gallery
     :align: center
     :alt: GUI
 
+.. figure:: ./example/band.png
+    :width: 750px
+    :align: center
+    :alt: GUI
+
 
 

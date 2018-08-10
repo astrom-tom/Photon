@@ -35,10 +35,15 @@ Change log
 
 
 
-log
-^^^
+* **photon 0.2.0**:
 
-* photon 0.1.8: 
+  * New **plot type**: band. This allows you to fill the space between two curves.
+  * fitsio --> astropy: mainly because some people reported problem with installing fitsio on py3.6.4.
+
+  
+
+
+* **photon 0.1.8**: 
 
   * axis in error plot fixed (X and Y we reversed)
   * load of marker for error plot the marker that was saved in the plot configuration file was not extracted correclty

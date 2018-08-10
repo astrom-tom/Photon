@@ -72,6 +72,14 @@ def get_axis_limits(loaded_plot, full):
         ys = []
 
         for j in full.dico_widget.keys():
+            if 'imag_' in j[:-1]:
+                for i in range(full.imageindex):
+                    x = full.dico_widget['imag_'+str(i+1)] 
+                    xs.append(0)
+                    xs.append(x.get_array().shape[0])
+                    ys.append(0)
+                    ys.append(x.get_array().shape[1])
+
             if 'line_' in j[:-1]:
                 for i in range(full.lineindex):
                     x = full.dico_widget['line_'+str(i+1)][0].get_xdata()
@@ -80,6 +88,7 @@ def get_axis_limits(loaded_plot, full):
                     xs.append(max(x))
                     ys.append(min(y))
                     ys.append(max(y))
+
             if 'scat_' in j[:-1]:
                 for i in range(full.scatterindex):
                     x ,y = full.dico_widget['scat_'+str(i+1)].get_offsets().T
@@ -87,6 +96,16 @@ def get_axis_limits(loaded_plot, full):
                     xs.append(max(x))
                     ys.append(min(y))
                     ys.append(max(y))
+
+            if 'erro_' in j[:-1]:
+                for i in range(full.errorindex):
+                    x = full.dico_widget['erro_'+str(i+1)][0].get_xdata()
+                    y = full.dico_widget['erro_'+str(i+1)][0].get_ydata()
+                    xs.append(min(x))
+                    xs.append(max(x))
+                    ys.append(min(y))
+                    ys.append(max(y))
+ 
             if 'hist_' in j[:-1]:
                 for i in range(full.histindex):
                     y,x,c = full.dico_widget['hist_'+str(i+1)]
@@ -128,5 +147,16 @@ def get_axis_limits(loaded_plot, full):
                     ys.append(min(y))
                     ys.append(max(y))
 
+            if 'bandl_' in j[:-1]:
+                for i in range(full.band_index):
+                    if 'bandl_'+str(i+1) in full.dico_widget.keys(): 
+                        x = full.dico_widget['bandl_'+str(i+1)][0].get_xdata()
+                        y = full.dico_widget['bandl_'+str(i+1)][0].get_ydata()
+                        xs.append(min(x))
+                        xs.append(max(x))
+                        ys.append(min(y))
+                        ys.append(max(y))
+
+ 
         return min(xs), max(xs), min(ys), max(ys)
 

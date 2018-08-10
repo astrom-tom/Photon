@@ -24,7 +24,8 @@
 
   
 
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -173,6 +174,8 @@
 <li>Error bars / new file</li>
 <li>Image</li>
 <li>Image / new file</li>
+<li>Band</li>
+<li>Band / new image</li>
 <li>Straight line</li>
 <li>Span</li>
 <li>Text</li>
@@ -197,9 +200,27 @@ with the chosen color.
 The checkbox <em>barplot</em> will transform your line plot to a line-bar plot. Instead of creating line directly from the poin it will draw steps at each point.
 Finally, the spinbox with number allows you to smooth your line plot by a gaussian filter. The width of the gaussian filter is given by the number chosen in the spinbox.</p>
 </div>
+<div class="section" id="band-plots">
+<h2>Band plots<a class="headerlink" href="#band-plots" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-right" id="id2" style="width: 300px">
+<img alt="_images/band_widgets.png" src="_images/band_widgets.png" />
+<p class="caption"><span class="caption-text">Band plot related widgets</span></p>
+</div>
+<p>The figure on the right shows the widget that will appear when y ou start a band plot.
+The first line shows you the file you use for this plot.
+The second line allows you to give the label of the plot (see below for details).
+The <em>delete button</em> allows you to remove the band plot from the plot and also all the associated widgets in the graphic element panel.
+Then you have to give <em>X</em>, <em>Y1</em>, <em>Y2</em>. Photon will create a plot filled with color between Y1 and Y2.
+The <em>color Band</em> widget allows you to select the filling color.
+Finally the <em>zorder</em> parameter allows you to choose how all the elements of the plot are pilled up (which one is on top of eachother).</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">It is worth mentionning that the fill_between method of matplotlib does not have a label argumnet. Therefore a line is created at the mean of <em>Y1</em> and <em>Y2</em> with the same color and same zorder as the band (it is therefore invisible). This label is assigned to this invisible line in the legend.</p>
+</div>
+</div>
 <div class="section" id="scatter-plots">
 <h2>Scatter plots<a class="headerlink" href="#scatter-plots" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id2" style="width: 300px">
+<div class="figure align-right" id="id3" style="width: 300px">
 <img alt="_images/scatterplot.png" src="_images/scatterplot.png" />
 <p class="caption"><span class="caption-text">Scatter plot related widgets</span></p>
 </div>
@@ -221,7 +242,7 @@ make your symbol disappear.</p>
 </div>
 <div class="section" id="histogram-plots">
 <h2>Histogram plots<a class="headerlink" href="#histogram-plots" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id3" style="width: 300px">
+<div class="figure align-right" id="id4" style="width: 300px">
 <img alt="_images/histplot.png" src="_images/histplot.png" />
 <p class="caption"><span class="caption-text">Histogram related widgets</span></p>
 </div>
@@ -242,7 +263,7 @@ Finally, a check box <em>norm</em> allows one to normalise the histogram. It wil
 </div>
 <div class="section" id="errorbar-plots">
 <h2>Errorbar plots<a class="headerlink" href="#errorbar-plots" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id4" style="width: 300px">
+<div class="figure align-right" id="id5" style="width: 300px">
 <img alt="_images/error.png" src="_images/error.png" />
 <p class="caption"><span class="caption-text">Errorbar plot related widgets</span></p>
 </div>
@@ -263,7 +284,7 @@ Finally you can control the tickness of the errorbars and the size of the errorb
 </div>
 <div class="section" id="image-plots">
 <h2>Image plots<a class="headerlink" href="#image-plots" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id5" style="width: 300px">
+<div class="figure align-right" id="id6" style="width: 300px">
 <img alt="_images/image.png" src="_images/image.png" />
 <p class="caption"><span class="caption-text">Image plot related widgets</span></p>
 </div>
@@ -274,7 +295,7 @@ Finally you can control the tickness of the errorbars and the size of the errorb
 </div>
 <div class="section" id="straight-lines">
 <h2>Straight lines<a class="headerlink" href="#straight-lines" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id6" style="width: 300px">
+<div class="figure align-right" id="id7" style="width: 300px">
 <img alt="_images/straightline.png" src="_images/straightline.png" />
 <p class="caption"><span class="caption-text">Straight line related widgets</span></p>
 </div>
@@ -288,7 +309,7 @@ And finally the <em>slide bar</em> will help you to change the tickness of the l
 </div>
 <div class="section" id="spans">
 <h2>Spans<a class="headerlink" href="#spans" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id7" style="width: 300px">
+<div class="figure align-right" id="id8" style="width: 300px">
 <img alt="_images/span.png" src="_images/span.png" />
 <p class="caption"><span class="caption-text">Spanning stripes related widgets</span></p>
 </div>
@@ -301,7 +322,7 @@ And finally the slide bar change the transparency of the strip.</p>
 </div>
 <div class="section" id="text">
 <h2>Text<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id8" style="width: 300px">
+<div class="figure align-right" id="id9" style="width: 300px">
 <img alt="_images/text.png" src="_images/text.png" />
 <p class="caption"><span class="caption-text">Text related widgets</span></p>
 </div>
@@ -480,7 +501,10 @@ It will write the full path of the file with respect to the directory where you 
 
   
 
-  <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
 
   <script type="text/javascript">
       jQuery(function () {

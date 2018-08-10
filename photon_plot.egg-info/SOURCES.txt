@@ -53,6 +53,8 @@ photon/docs/build/html/objects.inv
 photon/docs/build/html/search.html
 photon/docs/build/html/searchindex.js
 photon/docs/build/html/usage.html
+photon/docs/build/html/_images/band.png
+photon/docs/build/html/_images/band_widgets.png
 photon/docs/build/html/_images/custom_all.png
 photon/docs/build/html/_images/errobars_black.png
 photon/docs/build/html/_images/error.png
@@ -170,6 +172,8 @@ photon/docs/source/usage.rst~
 photon/docs/source/example/Axis.png
 photon/docs/source/example/all.png
 photon/docs/source/example/background.png
+photon/docs/source/example/band.png
+photon/docs/source/example/band_widgets.png
 photon/docs/source/example/custom_all.png
 photon/docs/source/example/errobars_black.png
 photon/docs/source/example/error.png

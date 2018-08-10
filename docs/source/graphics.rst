@@ -48,6 +48,8 @@ When clicking on 'Add element in plot' you have these different choices:
  * Error bars / new file
  * Image
  * Image / new file
+ * Band
+ * Band / new image
  * Straight line
  * Span
  * Text
@@ -55,7 +57,7 @@ When clicking on 'Add element in plot' you have these different choices:
 
 
 Line plots
-==========
+^^^^^^^^^^
 
 .. figure:: example/lineplot.png
     :align: right
@@ -78,10 +80,30 @@ with the chosen color.
 The checkbox *barplot* will transform your line plot to a line-bar plot. Instead of creating line directly from the poin it will draw steps at each point.
 Finally, the spinbox with number allows you to smooth your line plot by a gaussian filter. The width of the gaussian filter is given by the number chosen in the spinbox.
 
+Band plots
+^^^^^^^^^^
+
+.. figure:: example/band_widgets.png
+    :align: right
+    :figwidth: 300px
+
+    Band plot related widgets
+
+The figure on the right shows the widget that will appear when y ou start a band plot.
+The first line shows you the file you use for this plot. 
+The second line allows you to give the label of the plot (see below for details). 
+The *delete button* allows you to remove the band plot from the plot and also all the associated widgets in the graphic element panel.
+Then you have to give *X*, *Y1*, *Y2*. Photon will create a plot filled with color between Y1 and Y2. 
+The *color Band* widget allows you to select the filling color.
+Finally the *zorder* parameter allows you to choose how all the elements of the plot are pilled up (which one is on top of eachother).
+
+.. warning::
+    It is worth mentionning that the fill_between method of matplotlib does not have a label argumnet. Therefore a line is created at the mean of *Y1* and *Y2* with the same color and same zorder as the band (it is therefore invisible). This label is assigned to this invisible line in the legend.
 
 
 Scatter plots
-=============
+^^^^^^^^^^^^^
+
 .. figure:: example/scatterplot.png
     :align: right
     :figwidth: 300px
@@ -110,7 +132,8 @@ The two last slidebars make you control the tickness of the line drawing the mar
 
 
 Histogram plots
-===============
+^^^^^^^^^^^^^^^
+
 .. figure:: example/histplot.png
     :align: right
     :figwidth: 300px
@@ -137,7 +160,8 @@ Finally, a check box *norm* allows one to normalise the histogram. It will recom
 
 
 Errorbar plots
-==============
+^^^^^^^^^^^^^^
+
 .. figure:: example/error.png
     :align: right
     :figwidth: 300px
@@ -165,7 +189,8 @@ Finally you can control the tickness of the errorbars and the size of the errorb
 
 
 Image plots
-===========
+^^^^^^^^^^^
+
 .. figure:: example/image.png
     :align: right
     :figwidth: 300px
@@ -184,7 +209,8 @@ The last 3 lines allows you to plot contours over the image. To use them you hav
 
 
 Straight lines
-==============
+^^^^^^^^^^^^^^
+
 .. figure:: example/straightline.png
     :align: right
     :figwidth: 300px
@@ -203,7 +229,8 @@ The widget *linestyle* change the linestyle of the line.
 And finally the *slide bar* will help you to change the tickness of the line.
 
 Spans
-=====
+^^^^^
+
 .. figure:: example/span.png
     :align: right
     :figwidth: 300px
@@ -221,7 +248,8 @@ And finally the slide bar change the transparency of the strip.
 
 
 Text
-====
+^^^^
+
 .. figure:: example/text.png
     :align: right
     :figwidth: 300px
@@ -239,7 +267,8 @@ Finally the angle (from 0 degree to 360) allows one to rotate the text.
 
 
 Save a plot configuration
-=========================
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Once your plot is finalized you can save all the configuration by clicking on the button 'save plot' (at the top of the Grapical element panel).
 Doing so will create a configuration file containing all your graphical elements input. Later on you can use this configuration plot and load it back to 
 photon using the '-p' argument. It will load all the widget and you will be able to modify your plot from where you stopped.

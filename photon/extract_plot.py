@@ -41,6 +41,7 @@ class loadplot(object):
         TYPES['diag'] = conf.getint('Types', 'diag')
         TYPES['hist'] = conf.getint('Types', 'hist')
         TYPES['strip'] = conf.getint('Types', 'strip')
+        TYPES['band'] = conf.getint('Types', 'band')
         TYPES['xmin'] = conf.get('Types', 'xmin')
         TYPES['xmax'] = conf.get('Types', 'xmax')
         TYPES['ymin'] = conf.get('Types', 'ymin')
@@ -75,7 +76,9 @@ class loadplot(object):
         for i in range(TYPES['image']):
             self.get_imag_conf(conf, i+1)
         
-
+        for i in range(TYPES['band']):
+            self.get_band_conf(conf, i+1)
+ 
     def get_line_conf(self, conf, n):
         '''
         get the configuration the for the line plots number n
@@ -94,6 +97,21 @@ class loadplot(object):
         LINE['smooth'] = conf.get('line_%s'%n, 'smooth')
         LINE['zorder'] = conf.get('line_%s'%n, 'zorder')
         self.plotconf['Line_%s'%n] = LINE
+
+    def get_band_conf(self, conf, n):
+        '''
+        get the configuration the for the scatter plots number n
+        '''
+        BAND = {}
+        BAND['file'] = conf.get('band_%s'%n, 'file')
+        BAND['label'] = conf.get('band_%s'%n, 'label')
+        BAND['x'] = conf.get('band_%s'%n, 'x')
+        BAND['y1'] = conf.get('band_%s'%n, 'y1')
+        BAND['y2'] = conf.get('band_%s'%n, 'y2')
+        BAND['color'] = conf.get('band_%s'%n, 'color')
+        #BAND['hatch'] = conf.get('band_%s'%n, 'hatch')
+        BAND['zorder'] = conf.get('band_%s'%n, 'zorder')
+        self.plotconf['Band_%s'%n] = BAND
 
     def get_scat_conf(self, conf, n):
         '''

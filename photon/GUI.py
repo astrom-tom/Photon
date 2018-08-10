@@ -18,7 +18,7 @@ import warnings
 import os
 from functools import partial
 import numpy
-import fitsio
+from astropy.io import fits
 from scipy.ndimage import gaussian_filter 
 
 ######Qt5
@@ -98,6 +98,7 @@ class Main_window(QWidget):
         self.straight_index = 0
         self.strip_index = 0
         self.text_index = 0
+        self.band_index = 0
         self.widget_list = []
         self.initUI()
         if self.args.file:
@@ -234,6 +235,8 @@ class Main_window(QWidget):
                     self.add_error(self.loaded_plot.plotconf[i])
                 if i[:4] == 'Imag':
                     self.add_image(self.loaded_plot.plotconf[i])
+                if i[:4] == 'Band':
+                    self.add_band(self.loaded_plot.plotconf[i])
                  
         pm.ticks(self.properties, self.win, self.plot, self.figure, self.config.ticks)
         pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend)
@@ -323,12 +326,12 @@ class Main_window(QWidget):
         ###define types of plot
         if self.args.file == None:
             typs = ['line / new file', 'scatter / new file', 'histogram / new file', \
-                    'straight-line', 'Span', 'Text', 'Error / New file', 'Image / New file']
+                    'straight-line', 'Span', 'Text', 'Error / New file', 'Image / New file', 'Band / New file']
         else:
             typs = ['line', 'line / new file', 'scatter',\
                 'scatter / new file', 'histogram', 'histogram / new file', \
                 'straight-line', 'Span', 'Text', 'Error', 'Error / New file', \
-                'Image', 'Image / New file']
+                'Image', 'Image / New file', 'Band', 'Band / New file']
 
         ###display the popup choices
         typ, okpressed = QInputDialog.getItem(self, "Plot type", "Choose:", typs, 0, False)
@@ -370,7 +373,13 @@ class Main_window(QWidget):
                 inputfile = self.browse(args.file)
                 if inputfile != None:
                     self.add_image()
-
+            if typ == 'Band':
+                self.add_band(self.args.file)
+            if typ == 'Band / New file':
+                inputfile = self.browse()
+                if inputfile != None:
+                    self.add_band(inputfile)
+ 
 
     def browse(self):
         '''
@@ -379,7 +388,7 @@ class Main_window(QWidget):
         new_file = QFileDialog.getOpenFileName(self, "Find Files")[0]
         if new_file == '':
             new_file = self.args.file
-            return new_file
+        return new_file
 
     def add_image(self, conf):
         '''
@@ -552,7 +561,8 @@ class Main_window(QWidget):
             self.win.draw()
 
         ###extract fits
-        IM = fitsio.read(inputfile)
+        IM = fits.open(inputfile)[0].data
+        
 
         a = self.plotarea.parentWidget().findChildren(QComboBox, 'imag_%s_mapcolor'%index)
         color = a[0].currentText()
@@ -597,6 +607,14 @@ class Main_window(QWidget):
 
         ###save the plot in a dictionnary
         self.dico_widget['imag_'+str(index)] = self.image
+
+
+        ###adjust axis
+        minx, maxx, miny, maxy = limits.get_axis_limits(self.loaded_plot, self) 
+        self.plot.set_xlim(minx, maxx)
+        self.plot.set_ylim(miny, maxy)
+
+
 
         ###tight layouts
         self.figure.tight_layout()
@@ -1095,15 +1113,19 @@ class Main_window(QWidget):
         handles, labels = self.plot.get_legend_handles_labels()
         self.plot.legend(handles, labels)
 
+        ###adjust axis
+        minx, maxx, miny, maxy = limits.get_axis_limits(self.loaded_plot, self) 
+        self.plot.set_xlim(minx, maxx)
+        self.plot.set_ylim(miny, maxy)
+
+
+
+
         ###tight layouts
         self.figure.tight_layout()
 
         ##redraw
         self.win.draw()
-
-       
-
-
 
     def add_text(self, conf):
         '''
@@ -2036,6 +2058,280 @@ class Main_window(QWidget):
         ##redraw
         self.win.draw()
 
+
+    def add_band(self, conf):
+        '''
+        This adds a line plot configuration to the plot area
+        '''
+        if isinstance(conf, str) is True:
+            inputfile=conf
+            conf = {}
+            conf['file'] = inputfile
+            conf['label'] = 'Band plot number %s'%(self.band_index) 
+            conf['style'] = '-'
+            conf['color'] = '0.5'
+        #    conf['hatch'] = ''
+            conf['zorder'] = '1'
+            conf['hatch_band'] = ''
+
+        #Retrieve columns
+        columns = numpy.array(extract.header(conf['file']))
+
+        if 'x' not in conf.keys():
+            conf['x'] = columns[0]
+            conf['y1'] = columns[0]
+            conf['y2'] = columns[0]
+        
+        ###upgrade index
+        self.band_index += 1
+
+        #### 0 - separation
+        self.labelfile = QLabel(20*'-'+'Band plot'+20*'-')
+        self.plotarea.addWidget(self.labelfile, self.plot_index, 0, 1, 2)
+        self.labelfile.setObjectName('band_%s_separation'%self.band_index)
+        self.labelfile.setFont(myFont)
+        self.plot_index += 1
+        
+        self.filX = QLabel('File:')
+        self.plotarea.addWidget(self.filX, self.plot_index, 0, 1, 1)
+        self.filX.setObjectName('band_%s_filex'%self.band_index)
+        self.filX.setFont(myFont)
+
+        ###file
+        self.labelfile = QLabel('%s'%conf['file'])
+        self.plotarea.addWidget(self.labelfile, self.plot_index, 1, 1, 2)
+        self.labelfile.setObjectName('band_%s_labelfile'%self.band_index)
+        self.labelfile.setFont(myFont)
+        self.plot_index += 1
+
+        #### a- label
+        self.label = QLineEdit()
+        self.label.setFont(myFont)
+        self.plotarea.addWidget(self.label, self.plot_index, 0, 1, 1)
+        self.label.setObjectName('band_%s_label'%self.band_index)
+        self.label.setText(conf['label'])
+        self.label.setToolTip(tooltips.legend())
+
+        #### b- plot!
+        self.buttondel = QPushButton("Delete data")
+        self.plotarea.addWidget(self.buttondel, self.plot_index, 1, 1, 1)
+        self.buttondel.clicked.connect(partial(self.delete_widget, self.band_index, 'band'))
+        self.buttondel.setObjectName('band_%s_del'%self.band_index)
+        self.buttondel.setToolTip(tooltips.delete_plot())
+        self.plot_index += 1
+
+        #### b - scrooling list X
+        ####label
+        self.labelX = QLabel('X:')
+        self.plotarea.addWidget(self.labelX, self.plot_index, 0, 1, 1)
+        self.labelX.setObjectName('band_%s_xlabel'%self.band_index)
+        self.labelX.setFont(myFont)
+        self.comboX = QComboBox(self)
+        self.plotarea.addWidget(self.comboX, self.plot_index, 1, 1, 1)
+        for i in range(len(columns)):
+            self.comboX.addItem(columns[i])
+        index = numpy.where(columns == conf['x'])[0][0]
+        self.comboX.setObjectName("band_%s_X"%self.band_index)
+        self.comboX.setCurrentIndex(index)
+        self.plot_index += 1
+
+        #### c1 - scrooling list X
+        self.labelY = QLabel('Y1:')
+        self.plotarea.addWidget(self.labelY, self.plot_index, 0, 1, 1)
+        self.labelY.setObjectName('band_%s_ylabel'%self.band_index)
+        self.labelY.setFont(myFont)
+        self.comboY = QComboBox(self)
+        self.plotarea.addWidget(self.comboY, self.plot_index, 1, 1, 1)
+        for i in range(len(columns)):
+            self.comboY.addItem(columns[i])
+        index = numpy.where(columns == conf['y1'])[0][0]
+        self.comboY.setObjectName("band_%s_Y1"%self.band_index)
+        self.comboY.setCurrentIndex(index)
+        self.plot_index += 1
+
+        #### c1 - scrooling list X
+        self.labelY2 = QLabel('Y2:')
+        self.plotarea.addWidget(self.labelY2, self.plot_index, 0, 1, 1)
+        self.labelY2.setObjectName('band_%s_y2label'%self.band_index)
+        self.labelY2.setFont(myFont)
+        self.comboY2 = QComboBox(self)
+        self.plotarea.addWidget(self.comboY2, self.plot_index, 1, 1, 1)
+        for i in range(len(columns)):
+            self.comboY2.addItem(columns[i])
+        index = numpy.where(columns == conf['y2'])[0][0]
+        self.comboY2.setObjectName("band_%s_Y2"%self.band_index)
+        self.comboY2.setCurrentIndex(index)
+        self.plot_index += 1
+
+        #### d - scrooling band color
+        self.lcol = QLabel('Color Band:')
+        self.plotarea.addWidget(self.lcol, self.plot_index, 0, 1, 1)
+        self.lcol.setObjectName('band_%s_bcol'%self.band_index)
+        self.lcol.setFont(myFont)
+        self.combocolor_band = QComboBox(self)
+        self.plotarea.addWidget(self.combocolor_band, self.plot_index, 1, 1, 1)
+        for i in allcolors:
+            self.combocolor_band.addItem(i)
+        self.combocolor_band.setObjectName("band_%s_bcolor"%self.band_index)
+        index = numpy.where(allcolors == conf['color'])[0][0]
+        self.combocolor_band.setCurrentIndex(index)
+        self.plot_index += 1
+
+        '''
+        #### d - scrooling band color
+        self.lhatch = QLabel('hatch Band:')
+        self.plotarea.addWidget(self.lhatch, self.plot_index, 0, 1, 1)
+        self.lhatch.setObjectName('band_%s_hatch'%self.band_index)
+        self.lhatch.setFont(myFont)
+        self.hatch_band = QComboBox(self)
+        self.plotarea.addWidget(self.hatch_band, self.plot_index, 1, 1, 1)
+        hatches = numpy.array(['-', '+', 'x', '\\', '*', 'o', 'O', '.', ''])
+        for i in hatches:
+            self.hatch_band.addItem(i)
+        self.hatch_band.setObjectName("band_%s_hatchband"%self.band_index)
+        index = numpy.where(hatches == conf['hatch'])[0][0]
+        self.hatch_band.setCurrentIndex(index)
+        self.plot_index += 1
+        '''
+
+        #### e - zorder
+        self.zorder = QLabel('Zorder:')
+        self.plotarea.addWidget(self.zorder, self.plot_index, 0, 1, 1)
+        self.zorder.setObjectName('band_%s_zorderlabel'%self.band_index)
+        self.zorder.setFont(myFont)
+        self.zorderedit = QLineEdit(self)
+        self.zorderedit.setObjectName("band_%s_zorder"%self.band_index)
+        self.zorderedit.setText(conf['zorder'])
+        self.plotarea.addWidget(self.zorderedit, self.plot_index, 1, 1, 1)
+        self.zorderedit.setToolTip(tooltips.zorder())
+        self.plot_index += 1
+
+        ##events
+        self.comboY.currentIndexChanged.connect(partial(self.make_band, \
+                self.band_index, conf['file']))
+
+        self.comboY2.currentIndexChanged.connect(partial(self.make_band, \
+                self.band_index, conf['file']))
+
+        self.comboX.currentIndexChanged.connect(partial(self.make_band, \
+                self.band_index, conf['file']))
+
+        self.combocolor_band.currentIndexChanged.connect(partial(self.make_band, \
+                self.band_index, conf['file']))
+
+        #self.hatch_band.currentIndexChanged.connect(partial(self.make_band, \
+        #        self.band_index, conf['file']))
+
+        self.label.textChanged.connect(partial(self.make_band, \
+                self.band_index, conf['file']))
+
+        self.zorderedit.textChanged.connect(partial(self.make_band, \
+                self.band_index, conf['file']))
+
+        self.make_band(self.band_index, conf['file'])
+
+    def make_band(self, index, inputfile):
+        '''
+        This function make the line plot.
+        '''
+        ##check if this line plot was already in place
+        if 'band_'+str(index) in self.dico_widget.keys():
+                self.dico_widget['band_'+str(index)].remove()
+                del self.dico_widget['band_'+str(index)]
+
+        ##check if this line plot was already in place
+        if 'bandl_'+str(index) in self.dico_widget.keys():
+                self.dico_widget['bandl_'+str(index)][0].remove()
+                del self.dico_widget['bandl_'+str(index)]
+
+        ###get columns
+        columns = extract.header(inputfile)
+
+        ###get label
+        a = self.plotarea.parentWidget().findChildren(QLineEdit, 'band_%s_label'%index)
+        label = a[0].text()
+
+        ###get zorder
+        a = self.plotarea.parentWidget().findChildren(QLineEdit, 'band_%s_zorder'%index)
+        zorder = a[0].text()
+        try:
+            zorder = int(zorder)
+        except:
+            zorder=0
+
+        ###get X data
+        a = self.plotarea.parentWidget().findChildren(QComboBox, 'band_%s_X'%index)
+        X = a[0].currentText()
+        try:
+            Xl = [float(i) for i in extract.column(X, columns, inputfile)]
+        except:
+            Xl = numpy.ones(len(extract.column(X, columns, inputfile)))
+
+        ###get Y1 data
+        a = self.plotarea.parentWidget().findChildren(QComboBox, 'band_%s_Y1'%index)
+        Y1 = a[0].currentText()
+        try:
+            Yl1 = [float(i) for i in extract.column(Y1, columns, inputfile)]
+        except:
+            Yl1 = numpy.ones(len(extract.column(Y1, columns, inputfile)))
+        
+
+        ###get Y2 data
+        a = self.plotarea.parentWidget().findChildren(QComboBox, 'band_%s_Y2'%index)
+        Y2 = a[0].currentText()
+        try:
+            Yl2 = [float(i) for i in extract.column(Y2, columns, inputfile)]
+        except:
+            Yl2 = numpy.ones(len(extract.column(Y2, columns, inputfile)))
+ 
+
+        a = self.plotarea.parentWidget().findChildren(QComboBox, 'band_%s_bcolor'%index)
+        color_fb = a[0].currentText()
+
+        ##hatch
+        #a = self.plotarea.parentWidget().findChildren(QComboBox, 'band_%s_hatchband'%index)
+        #hatch = a[0].currentText()
+        #print('hatch', hatch)
+
+        ###plot
+        self.bandl1 = self.plot.plot(Xl, numpy.mean([Yl1,Yl2], axis =0), \
+                color=color_fb, lw=2, label=label, zorder=zorder)
+        self.band = self.plot.fill_between(Xl, Yl1, Yl2, \
+                lw=0, color=color_fb, zorder=zorder, hatch='/') 
+
+        ###save the plot in a dictionnary
+        self.dico_widget['band_'+str(index)] = self.band
+        self.dico_widget['bandl_'+str(index)] = self.bandl1
+
+        ###add legend
+        ###this is a quick and dirty trick to check if
+        ###the mathText entry are ok
+        labl = self.band.get_label()
+        p = self.changeleg(labl)
+        if p == 'nok':
+            self.changeleg(self.ylabl.text())
+            self.band.set_label('retry')
+            self.changeylabl()
+        else:
+            self.changeleg(self.ylabl.text())
+
+        handles, labels = self.plot.get_legend_handles_labels()
+        self.plot.legend(handles, labels)
+
+        ###adjust axis
+        minx, maxx, miny, maxy = limits.get_axis_limits(self.loaded_plot, self) 
+        self.plot.set_xlim(minx, maxx)
+        self.plot.set_ylim(miny, maxy)
+
+        ###tight layouts
+        self.figure.tight_layout()
+
+        ##redraw
+        self.win.draw()
+
+
+
+
     def add_line(self, conf):
         '''
         This adds a line plot configuration to the plot area
@@ -2760,6 +3056,12 @@ class Main_window(QWidget):
                 self.dico_widget['line_'+str(index)][0].remove()
                 self.win.draw()
 
+            if 'fb_'+str(index) in self.dico_widget.keys():
+                self.dico_widget['fb_'+str(index)].remove()
+                del self.dico_widget['fb_'+str(index)]
+                self.win.draw()
+
+
         if typeplot == 'stra':
             if 'stra_'+str(index) in self.dico_widget.keys():
                 self.dico_widget['stra_'+str(index)][0].remove()
@@ -2786,4 +3088,15 @@ class Main_window(QWidget):
                 self.dico_widget['erro_'+str(index)]._label = ''
                 self.win.draw()
 
+
+        if typeplot == 'band':
+            if 'band_'+str(index) in self.dico_widget.keys():
+                self.dico_widget['band_'+str(index)].remove()
+                del self.dico_widget['band_'+str(index)]
+                self.win.draw()
+
+            if 'bandl_'+str(index) in self.dico_widget.keys():
+                self.dico_widget['bandl_'+str(index)][0].remove()
+                del self.dico_widget['bandl_'+str(index)]
+                self.win.draw()
 
