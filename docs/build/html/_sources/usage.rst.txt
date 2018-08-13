@@ -47,7 +47,7 @@ For the moment, the only way to use Photon is to download the source code from t
 * Matplotlib v2.2.2: This is for the plotting area. 
 * Numpy v1.14.2: catalog handling
 * Scipy v1.0.1: Some usefull function for smoothing / images
-* fitsio v0.9.10: Fits file handling library
+* astropy v3.0.2: For fits image opening
 
 Photon is available in the pypi test repository. To install it:
 
