@@ -34,6 +34,12 @@ Change log
 ----------
 
 
+* **photon 0.2.0**:
+
+  * modif: The file names are displayed now without the path.
+  * bug fix: Straight line crashed photon when adding a straight line as first element
+  * bug fix: zorder straight line was not taken into account
+  * bug fix: Update the plot was modifying the style of the legend. Now it is fixed
 
 * **photon 0.2.0**:
 

@@ -36,7 +36,10 @@ def header(inputfile):
 
     ####extract number of column
     A = numpy.genfromtxt(inputfile, dtype='str').T
-    Nc = len(A)
+    if len(A.shape) == 1:
+        Nc = 1
+    else:
+        Nc = len(A)
 
     with open(inputfile, 'r') as F:
         ##we look at the first line
@@ -100,8 +103,10 @@ def column(name_col, columns, cat):
     index_in_cat = numpy.where(name_col == numpy.array(columns) )[0][0]
 
     ##we load the catalog
-    cat = numpy.genfromtxt(cat, dtype='str').T
-
-    return cat[index_in_cat]
+    if len(columns) == 1:
+        return numpy.genfromtxt(cat, dtype='str')
+    else:
+        cat = numpy.genfromtxt(cat, dtype='str').T
+        return cat[index_in_cat]
 
 

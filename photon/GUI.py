@@ -418,7 +418,7 @@ class Main_window(QWidget):
         self.imageindex += 1
 
         #### a - file
-        self.labelfile = QLabel('%s'%conf['file'])
+        self.labelfile = QLabel('%s'%os.path.basename(conf['file']))
         self.plotarea.addWidget(self.labelfile, self.plot_index, 0, 1, 2)
         self.labelfile.setObjectName('imag_%s_labelfile'%self.imageindex)
         self.labelfile.setFont(myFont)
@@ -614,7 +614,8 @@ class Main_window(QWidget):
         self.plot.set_xlim(minx, maxx)
         self.plot.set_ylim(miny, maxy)
 
-
+        ##update legend
+        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend)
 
         ###tight layouts
         self.figure.tight_layout()
@@ -671,7 +672,7 @@ class Main_window(QWidget):
         self.filX.setFont(myFont)
 
         #### c - scrooling list X
-        self.labelfile = QLabel(conf['file'])
+        self.labelfile = QLabel(os.path.basename(conf['file']))
         self.plotarea.addWidget(self.labelfile, self.plot_index, 1, 1, 2)
         self.labelfile.setObjectName('erro_%s_labelfile'%self.errorindex)
         self.labelfile.setFont(myFont)
@@ -1118,8 +1119,8 @@ class Main_window(QWidget):
         self.plot.set_xlim(minx, maxx)
         self.plot.set_ylim(miny, maxy)
 
-
-
+        ##update legend
+        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend)
 
         ###tight layouts
         self.figure.tight_layout()
@@ -1156,9 +1157,6 @@ class Main_window(QWidget):
         self.plotarea.addWidget(self.filX, self.plot_index, 0, 1, 1)
         self.filX.setObjectName('text_%s_filex'%self.text_index)
         self.filX.setFont(myFont)
-
-
-
 
         #### a- delete
         self.buttondel = QPushButton("Delete text")
@@ -1640,7 +1638,7 @@ class Main_window(QWidget):
                 self.straight_index))
 
         self.zorderedit.textChanged.connect(partial(self.make_straight, \
-                self.scatterindex))
+                self.straight_index))
 
 
     def make_straight(self, index):
@@ -1671,7 +1669,7 @@ class Main_window(QWidget):
         a = self.plotarea.parentWidget().findChildren(QLineEdit, 'stra_%s_zorder'%index)
         zorder = a[0].text()
         try:
-            zorder = float(zorder) 
+            zorder = int(zorder) 
         except:
             zorder = 1
 
@@ -1710,13 +1708,14 @@ class Main_window(QWidget):
             self.straight = self.plot.plot(coor, coor, \
                 ls=linestyle, lw=lw, color=color, zorder = zorder)
 
+        ###save the plot in a dictionnary
+        self.dico_widget['stra_'+str(index)] = self.straight
+
+
         ###adjust axis
         minx, maxx, miny, maxy = limits.get_axis_limits(self.loaded_plot, self) 
         self.plot.set_xlim(minx, maxx)
         self.plot.set_ylim(miny, maxy)
-
-        ###save the plot in a dictionnary
-        self.dico_widget['stra_'+str(index)] = self.straight
 
         ##refresh
         self.win.draw()
@@ -1754,7 +1753,7 @@ class Main_window(QWidget):
         self.histindex += 1
 
         ###file
-        self.labelfile = QLabel(conf['file'])
+        self.labelfile = QLabel(os.path.basename(conf['file']))
         self.plotarea.addWidget(self.labelfile, self.plot_index, 0, 1, 2)
         self.labelfile.setObjectName('hist_%s_labelfile'%self.histindex)
         self.labelfile.setFont(myFont)
@@ -1943,7 +1942,6 @@ class Main_window(QWidget):
         ###get columns
         columns = extract.header(inputfile)
 
-
         ###get linestyle
         a = self.plotarea.parentWidget().findChildren(QComboBox, 'hist_%s_ls'%index)
         linestyle = a[0].currentText()
@@ -1965,7 +1963,6 @@ class Main_window(QWidget):
             zorder = 1
 
 
-
         ###get binning
         a = self.plotarea.parentWidget().findChildren(QLineEdit, 'hist_%s_bin'%index)
         try:
@@ -1984,7 +1981,6 @@ class Main_window(QWidget):
         except:
             Xl = numpy.ones(len(extract.column(X, columns, inputfile)))
         
-
         ###get color
         a = self.plotarea.parentWidget().findChildren(QComboBox, 'hist_%s_color'%index)
         color = a[0].currentText()
@@ -2036,10 +2032,6 @@ class Main_window(QWidget):
                 histtype=histtype, ls=linestyle, label=label, color=color, alpha=tr, lw=lw, zorder=zorder)
 
 
-        ###set legend
-        handles, labels = self.plot.get_legend_handles_labels()
-        self.plot.legend(handles, labels)
-
         ###save the plot in a dictionnary
         self.dico_widget['hist_'+str(index)] = self.hist
 
@@ -2051,6 +2043,9 @@ class Main_window(QWidget):
         ###add legend
         handles, labels = self.plot.get_legend_handles_labels()
         self.plot.legend(handles, labels)
+
+        ##update legend
+        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend)
 
         ###tight layouts
         self.figure.tight_layout()
@@ -2098,7 +2093,7 @@ class Main_window(QWidget):
         self.filX.setFont(myFont)
 
         ###file
-        self.labelfile = QLabel('%s'%conf['file'])
+        self.labelfile = QLabel('%s'%os.path.basename(conf['file']))
         self.plotarea.addWidget(self.labelfile, self.plot_index, 1, 1, 2)
         self.labelfile.setObjectName('band_%s_labelfile'%self.band_index)
         self.labelfile.setFont(myFont)
@@ -2374,7 +2369,7 @@ class Main_window(QWidget):
         self.filX.setFont(myFont)
 
         ###file
-        self.labelfile = QLabel('%s'%conf['file'])
+        self.labelfile = QLabel('%s'%os.path.basename(conf['file']))
         self.plotarea.addWidget(self.labelfile, self.plot_index, 1, 1, 2)
         self.labelfile.setObjectName('line_%s_labelfile'%self.lineindex)
         self.labelfile.setFont(myFont)
@@ -2668,6 +2663,9 @@ class Main_window(QWidget):
         handles, labels = self.plot.get_legend_handles_labels()
         self.plot.legend(handles, labels)
 
+        ##update legend
+        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend)
+
         ###adjust axis
         minx, maxx, miny, maxy = limits.get_axis_limits(self.loaded_plot, self) 
         self.plot.set_xlim(minx, maxx)
@@ -2721,7 +2719,7 @@ class Main_window(QWidget):
         self.filX.setFont(myFont)
 
         #### c - scrooling list X
-        self.labelfile = QLabel(conf['file'])
+        self.labelfile = QLabel(os.path.basename(conf['file']))
         self.plotarea.addWidget(self.labelfile, self.plot_index, 1, 1, 2)
         self.labelfile.setObjectName('scat_%s_labelfile'%self.scatterindex)
         self.labelfile.setFont(myFont)
@@ -2987,6 +2985,9 @@ class Main_window(QWidget):
         ###add legend
         handles, labels = self.plot.get_legend_handles_labels()
         self.plot.legend(handles, labels)
+
+        ##refresh legend
+        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend)
 
         ###adjust axis
         minx, maxx, miny, maxy = limits.get_axis_limits(self.loaded_plot, self) 

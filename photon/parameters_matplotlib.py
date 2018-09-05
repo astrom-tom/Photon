@@ -756,7 +756,6 @@ def legend(grid, win, plot, figure, conf):
 
     ###frame on, off
     frame = QCheckBox('Frame On/Off')
-
     if conf['Frame'].lower() == 'on':
         frame.setChecked(True)
     elif conf['Frame'].lower() == 'off':
@@ -839,8 +838,6 @@ def legend(grid, win, plot, figure, conf):
             frame, lfsize, flegend_combo, leg_col_combo, conf, leg_loc_combo))
 
 
-
-
 def legend_event(win, plot, figure, frame, lfsize, flegend_box, leg_col_box, conf, leg_loc_box):
     '''
     This function change the propertoes of the legend.
@@ -864,13 +861,14 @@ def legend_event(win, plot, figure, frame, lfsize, flegend_box, leg_col_box, con
 
     ##update conf
     if frame_status == True:
-        conf['Frame'] == 'on'
+        conf['Frame'] = 'on'
     if frame_status == False:
-        conf['Frame'] == 'off'
+        conf['Frame'] = 'off'
 
     conf['font_size'] = fontsize
     conf['Label_font_color'] = leg_col
     conf['Legend_font'] = flegend
+    conf['location'] = leg_loc
 
 
     #####
