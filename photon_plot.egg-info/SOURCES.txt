@@ -142,6 +142,7 @@ photon/docs/build/html/_static/fonts/RobotoSlab/roboto-slab-v7-regular.woff2
 photon/docs/build/html/_static/js/modernizr.min.js
 photon/docs/build/html/_static/js/theme.js
 photon/docs/logo/.fake.txt.un~
+photon/docs/logo/.logo.conf.un~
 photon/docs/logo/LogoDoc.png
 photon/docs/logo/LogoGUI.png
 photon/docs/logo/Logodoc.eps

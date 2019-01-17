@@ -34,7 +34,7 @@ Change log
 ----------
 
 
-* **photon 0.2.0**:
+* **photon 0.2.2**:
 
   * modif: The file names are displayed now without the path.
   * bug fix: Straight line crashed photon when adding a straight line as first element

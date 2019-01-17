@@ -1444,7 +1444,7 @@ class Main_window(QWidget):
                 self.strip_index))
 
         self.zorderedit.textChanged.connect(partial(self.make_strip, \
-                self.scatterindex))
+                self.strip_index))
 
 
     def make_strip(self, index):
@@ -1494,13 +1494,13 @@ class Main_window(QWidget):
         except:
             self.span = self.plot.axvspan(1, 2, ls='-', lw=0, alpha=tr, color=color, zorder = zorder)
     
+        ###save the plot in a dictionnary
+        self.dico_widget['stri_'+str(index)] = self.span
+
         ###adjust axis
         minx, maxx, miny, maxy = limits.get_axis_limits(self.loaded_plot, self) 
         self.plot.set_xlim(minx, maxx)
         self.plot.set_ylim(miny, maxy)
-
-        ###save the plot in a dictionnary
-        self.dico_widget['stri_'+str(index)] = self.span
 
         ##refresh
         self.win.draw()
