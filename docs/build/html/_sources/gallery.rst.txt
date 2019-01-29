@@ -40,32 +40,37 @@ Gallery
 .. figure:: ./example/errobars_black.png
     :width: 750px
     :align: center
-    :alt: GUI
+    :alt: errors
 
 .. figure:: ./example/scatter_text.png
     :width: 750px
     :align: center
-    :alt: GUI
+    :alt: scat
 
 .. figure:: ./example/specandtext.png
     :width: 750px
     :align: center
-    :alt: GUI
+    :alt: spec
 
 .. figure:: ./example/hist_ex.png
     :width: 750px
     :align: center
-    :alt: GUI
+    :alt: hist
 
 .. figure:: ./example/image_ex.png
     :width: 750px
     :align: center
-    :alt: GUI
+    :alt: image
 
 .. figure:: ./example/band.png
     :width: 750px
     :align: center
-    :alt: GUI
+    :alt: band
+
+.. figure:: ./example/colorbar.png
+    :width: 750px
+    :align: center
+    :alt: colorbar
 
 
 

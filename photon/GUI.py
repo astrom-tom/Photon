@@ -78,6 +78,18 @@ finalmarkers = numpy.array([i for i in markers if i not in range(12) and i != 'N
 ################matplotlib cmaps
 maps = numpy.array(list(m for m in plt.cm.datad if not m.endswith("_r")))
 #######################################################################################
+####load font names
+flist = matplotlib.font_manager.get_fontconfig_fonts()
+names = []
+for fname in flist:
+    try:	
+        a = matplotlib.font_manager.FontProperties(fname=fname).get_name()
+        names.append(a)
+    except:
+        pass
+namesfont = numpy.array(names)
+namesfont = numpy.delete(names,numpy.where(names == 'Goha-Tibeb Zemen' ) )
+
 
 class Main_window(QWidget):
 
@@ -89,6 +101,7 @@ class Main_window(QWidget):
         self.args = cli_args
         self.lineindex = 0
         self.scatterindex = 0
+        self.scatterCBindex = 0
         self.errorindex = 0
         self.imageindex = 0
         self.histindex = 0
@@ -202,13 +215,15 @@ class Main_window(QWidget):
             self.loaded_plot.plotconf = {}
             self.loaded_plot.plotconf['types'] = {'xmin':'Xmin', 'xmax':'Xmax', \
                     'ymin':'Ymin', 'ymax':'Ymax'}
+
         pm.axis_lim(self.properties, self.win, self.plot, self.figure, self.loaded_plot, self.config)
         pm.background(self.properties, self.win, self.plot, self.figure, self.config)
         pm.axis(self.properties, self.win, self.plot, self.figure, self.config.axis)
         pm.fonts(self.properties, self.win, self.plot, self.figure, self.config)
 
+
         buttontheme = QPushButton("Save new Theme")
-        self.properties.addWidget(buttontheme, 29, 0, 1, 2)
+        self.properties.addWidget(buttontheme, 35, 0, 1, 2)
         buttontheme.clicked.connect(self.save_theme)
 
         scroll.setWidget(widget)
@@ -223,6 +238,8 @@ class Main_window(QWidget):
                     self.add_line(self.loaded_plot.plotconf[i])
                 if i[:4] == 'Scat':
                     self.add_scatter(self.loaded_plot.plotconf[i])
+                if i[:4] == 'sccb':
+                    self.add_scatterCB(self.loaded_plot.plotconf[i]) 
                 if i[:4] == 'Text':
                     self.add_text(self.loaded_plot.plotconf[i]) 
                 if i[:4] == 'Stra':
@@ -325,13 +342,14 @@ class Main_window(QWidget):
         '''
         ###define types of plot
         if self.args.file == None:
-            typs = ['line / new file', 'scatter / new file', 'histogram / new file', \
-                    'straight-line', 'Span', 'Text', 'Error / New file', 'Image / New file', 'Band / New file']
+            typs = ['line / new file', 'scatter / new file', 'scatter CB / new file',\
+                    'histogram / new file', 'straight-line', 'Span', 'Text', \
+                    'Error / New file', 'Image / New file', 'Band / New file']
         else:
-            typs = ['line', 'line / new file', 'scatter',\
-                'scatter / new file', 'histogram', 'histogram / new file', \
-                'straight-line', 'Span', 'Text', 'Error', 'Error / New file', \
-                'Image', 'Image / New file', 'Band', 'Band / New file']
+            typs = ['line', 'line / new file', 'scatter', 'scatter / new file', \
+                    'scatter CB', 'scatter CB / new file', 'histogram', 'histogram / new file', \
+                    'straight-line', 'Span', 'Text', 'Error', 'Error / New file', \
+                    'Image', 'Image / New file', 'Band', 'Band / New file']
 
         ###display the popup choices
         typ, okpressed = QInputDialog.getItem(self, "Plot type", "Choose:", typs, 0, False)
@@ -342,6 +360,12 @@ class Main_window(QWidget):
                 inputfile = self.browse()
                 if inputfile != None:
                     self.add_scatter(inputfile)
+            if typ == 'scatter CB':
+                self.add_scatterCB(self.args.file)
+            if typ == 'scatter CB / new file':
+                inputfile = self.browse()
+                if inputfile != None:
+                    self.add_scatterCB(inputfile)
             if typ == 'line':
                 self.add_line(self.args.file)
             if typ == 'line / new file':
@@ -3000,6 +3024,570 @@ class Main_window(QWidget):
         ##redraw
         self.win.draw()
 
+    def add_scatterCB(self, conf):
+        '''
+        This adds a scatter plot configuration to the plot area with a colorbar
+        '''
+        if isinstance(conf, str) is True:
+            inputfile=conf
+            conf = {}
+            conf['file'] = inputfile
+            conf['label'] = 'Scatter plot with colorbar %s'%(self.scatterCBindex) 
+            conf['labelcb'] = 'colorbar label %s'%(self.scatterCBindex) 
+            conf['style'] = '-'
+            conf['thickness'] = 10
+            conf['transparency'] = 10
+            conf['empty'] = 'No'
+            conf['size'] = 100
+            conf['marker'] = '.'
+            conf['zorder'] = '1'
+            conf['vmax'] = '1'
+            conf['vmin'] = '0'
+            conf['colormap'] = 'Greys'
+            conf['fontlabel'] = 'DejaVu Math TeX Gyre'
+            conf['fonttickslabel'] = 'DejaVu Math TeX Gyre'
+            conf['Labelsize'] = 10
+            conf['tickLabelsize'] = 10
+            conf['labelpad'] = '1'
+
+        #Retrieve columns
+        columns = numpy.array(extract.header(conf['file']))
+
+        if 'x' not in conf.keys():
+            conf['x'] = columns[0]
+            conf['y'] = columns[0]
+            conf['z'] = columns[0]
+
+
+        ###upgrade index
+        self.scatterCBindex += 1
+
+        #### 0 - separation
+        self.labelfile = QLabel(15*'-'+'Scatter plot with color bar'+15*'-')
+        self.plotarea.addWidget(self.labelfile, self.plot_index, 0, 1, 2)
+        self.labelfile.setObjectName('sccb_%s_separation'%self.scatterCBindex)
+        self.labelfile.setFont(myFont)
+        self.plot_index += 1
+        
+        self.filX = QLabel('File:')
+        self.plotarea.addWidget(self.filX, self.plot_index, 0, 1, 1)
+        self.filX.setObjectName('sccb_%s_filex'%self.scatterCBindex)
+        self.filX.setFont(myFont)
+
+        #### c - label file
+        self.labelfile = QLabel(os.path.basename(conf['file']))
+        self.plotarea.addWidget(self.labelfile, self.plot_index, 1, 1, 2)
+        self.labelfile.setObjectName('sccb_%s_labelfile'%self.scatterCBindex)
+        self.labelfile.setFont(myFont)
+        self.plot_index += 1
+
+        #### a- label
+        self.label = QLineEdit()
+        self.label.setFont(myFont)
+        self.plotarea.addWidget(self.label, self.plot_index, 0, 1, 1)
+        self.label.setObjectName('sccb_%s_label'%self.scatterCBindex)
+        self.label.setText(conf['label'])
+        self.label.setToolTip(tooltips.legend())
+
+        #### b- delete button
+        self.buttondel = QPushButton("Delete data")
+        self.plotarea.addWidget(self.buttondel, self.plot_index, 1, 1, 1)
+        self.buttondel.clicked.connect(partial(self.delete_widget, self.scatterCBindex, 'sccb'))
+        self.buttondel.setObjectName('sccb_%s_del'%self.scatterCBindex)
+        self.buttondel.setToolTip(tooltips.delete_plot())
+        self.plot_index += 1
+
+
+        #### a- label
+        self.labelcb = QLabel('color bar label:')
+        self.plotarea.addWidget(self.labelcb, self.plot_index, 0, 1, 2)
+        self.labelcb.setObjectName('sccb_%s_labelcolorbar'%self.scatterCBindex)
+        self.labelcb.setFont(myFont) 
+        self.colorbarlabel = QLineEdit()
+        self.colorbarlabel.setFont(myFont)
+        self.plotarea.addWidget(self.colorbarlabel, self.plot_index, 1, 1, 1)
+        self.colorbarlabel.setObjectName('sccb_%s_labelcb'%self.scatterCBindex)
+        self.colorbarlabel.setText(conf['labelcb'])
+        self.colorbarlabel.setToolTip(tooltips.legend())
+        self.plot_index += 1
+
+        #### b - scrooling list X
+        ####label
+        self.labelX = QLabel('X:')
+        self.plotarea.addWidget(self.labelX, self.plot_index, 0, 1, 1)
+        self.labelX.setObjectName('sccb_%s_labelx'%self.scatterCBindex)
+        self.labelX.setFont(myFont)
+        self.comboX = QComboBox(self)
+        self.plotarea.addWidget(self.comboX, self.plot_index, 1, 1, 1)
+        for i in range(len(columns)):
+            self.comboX.addItem(columns[i])
+        index = numpy.where(columns == conf['x'])[0][0]
+        self.comboX.setCurrentIndex(index)
+        self.comboX.setObjectName("sccb_%s_X"%self.scatterCBindex)
+        self.plot_index += 1
+
+        #### c - scrooling list Y
+        self.labelY = QLabel('Y:')
+        self.plotarea.addWidget(self.labelY, self.plot_index, 0, 1, 1)
+        self.labelY.setObjectName('sccb_%s_labely'%self.scatterCBindex)
+        self.labelY.setFont(myFont)
+        self.comboY = QComboBox(self)
+        self.plotarea.addWidget(self.comboY, self.plot_index, 1, 1, 1)
+        for i in range(len(columns)):
+            self.comboY.addItem(columns[i])
+        index = numpy.where(columns == conf['y'])[0][0]
+        self.comboY.setCurrentIndex(index)
+        self.comboY.setObjectName("sccb_%s_Y"%self.scatterCBindex)
+        self.plot_index += 1
+
+        #### c - scrooling list Z
+        self.labelZ = QLabel('Z:')
+        self.plotarea.addWidget(self.labelZ, self.plot_index, 0, 1, 1)
+        self.labelZ.setObjectName('sccb_%s_labelz'%self.scatterCBindex)
+        self.labelZ.setFont(myFont)
+        self.comboZ = QComboBox(self)
+        self.plotarea.addWidget(self.comboZ, self.plot_index, 1, 1, 1)
+        for i in range(len(columns)):
+            self.comboZ.addItem(columns[i])
+        index = numpy.where(columns == conf['z'])[0][0]
+        self.comboZ.setCurrentIndex(index)
+        self.comboZ.setObjectName("sccb_%s_Z"%self.scatterCBindex)
+        self.plot_index += 1
+
+        #### d - scrooling list color
+        self.map = QLabel('Colormap:')
+        self.plotarea.addWidget(self.map, self.plot_index, 0, 1, 1)
+        self.map.setObjectName('sccb_%s_map'%self.scatterCBindex)
+        self.map.setFont(myFont)
+        self.mapcombocolor = QComboBox(self)
+        self.plotarea.addWidget(self.mapcombocolor, self.plot_index, 1, 1, 1)
+        for i in maps:
+            self.mapcombocolor.addItem(i)
+        self.mapcombocolor.setObjectName("sccb_%s_mapcolor"%self.scatterCBindex)
+        index = numpy.where(numpy.array(maps) == conf['colormap'])[0][0]
+        self.mapcombocolor.setCurrentIndex(index)
+        self.plot_index += 1
+
+        #### vmax
+        self.labelvmax = QLabel('zmax:')
+        self.plotarea.addWidget(self.labelvmax, self.plot_index, 0, 1, 1)
+        self.labelvmax.setObjectName('sccb_%s_labelvmax'%self.scatterCBindex)
+        self.labelvmax.setFont(myFont)
+        self.vmax = QLineEdit()
+        self.vmax.setFont(myFont)
+        self.plotarea.addWidget(self.vmax, self.plot_index, 1, 1, 1)
+        self.vmax.setObjectName('sccb_%s_vmax'%self.scatterCBindex)
+        self.vmax.setText(conf['vmax'])
+        self.vmax.setToolTip(tooltips.legend())
+        self.plot_index += 1
+
+        #### vmin
+        self.labelvmin = QLabel('zmin:')
+        self.plotarea.addWidget(self.labelvmin, self.plot_index, 0, 1, 1)
+        self.labelvmin.setObjectName('sccb_%s_labelvmin'%self.scatterCBindex)
+        self.labelvmin.setFont(myFont) 
+        self.vmin = QLineEdit()
+        self.vmin.setFont(myFont)
+        self.plotarea.addWidget(self.vmin, self.plot_index, 1, 1, 1)
+        self.vmin.setObjectName('sccb_%s_vmin'%self.scatterCBindex)
+        self.vmin.setText(conf['vmin'])
+        self.vmin.setToolTip(tooltips.legend())
+        self.plot_index += 1
+
+        #### e - scrooling list markers
+        self.markerlab = QLabel('Marker:')
+        self.plotarea.addWidget(self.markerlab, self.plot_index, 0, 1, 1)
+        self.markerlab.setObjectName('sccb_%s_mlab'%self.scatterCBindex)
+        self.markerlab.setFont(myFont)
+        self.combomarkers = QComboBox(self)
+        for i in finalmarkers:
+            self.combomarkers.addItem(str(i))
+        index = numpy.where(numpy.array(finalmarkers) == conf['marker'])[0][0]
+        self.combomarkers.setObjectName("sccb_%s_marker"%self.scatterCBindex)
+        self.combomarkers.setCurrentIndex(index)
+        self.plotarea.addWidget(self.combomarkers, self.plot_index, 1, 1, 1)
+        self.plot_index += 1
+
+        #### f - marker_width
+        self.slab = QLabel('Size:')
+        self.plotarea.addWidget(self.slab, self.plot_index, 0, 1, 1)
+        self.slab.setObjectName('sccb_%s_slab'%self.scatterCBindex)
+        self.slab.setFont(myFont)
+        self.scatsize = QSpinBox()  ##spinbox linewidth
+        self.plotarea.addWidget(self.scatsize, self.plot_index, 1, 1, 1)
+        self.scatsize.setMinimum(0)
+        self.scatsize.setMaximum(500)
+        self.scatsize.setValue(int(conf['size'])) ###set default
+        self.scatsize.setObjectName("sccb_%s_size"%self.scatterCBindex)
+        self.plot_index += 1
+
+        #### g - empty marker
+        self.empty = QCheckBox('Empty marker')
+        if conf['empty'] == 'Yes':
+            self.empty.setChecked(True)
+        self.plotarea.addWidget(self.empty, self.plot_index, 0, 1, 1)
+        self.empty.setFont(myFont)
+        self.empty.setObjectName("sccb_%s_empty"%self.scatterCBindex)
+        self.empty.setToolTip(tooltips.empty())
+        self.plot_index += 1
+
+        ### h - slider lw
+        self.slider = QSlider(QtCore.Qt.Horizontal)
+        self.slider.setMinimum(1)
+        self.slider.setMaximum(30)
+        self.slider.setValue(int(conf['thickness']))
+        self.plotarea.addWidget(self.slider, self.plot_index, 0, 1, 2)
+        self.slider.setObjectName("sccb_%s_slider"%self.scatterCBindex)
+        self.slider.setToolTip(tooltips.slider_lw())
+        self.plot_index += 1
+
+        ### i - slider transparency
+        self.slidertr = QSlider(QtCore.Qt.Horizontal)
+        self.slidertr.setMinimum(1)
+        self.slidertr.setMaximum(10)
+        self.slidertr.setValue(int(conf['transparency']))
+        self.plotarea.addWidget(self.slidertr, self.plot_index, 0, 1, 2)
+        self.slidertr.setObjectName("sccb_%s_tr"%self.scatterCBindex)
+        self.slidertr.setToolTip(tooltips.slider_tr())
+        self.plot_index += 1
+
+        #### e - scrooling list linestyle
+        self.zorder = QLabel('Zorder:')
+        self.plotarea.addWidget(self.zorder, self.plot_index, 0, 1, 1)
+        self.zorder.setObjectName('sccb_%s_zorderlabel'%self.scatterCBindex)
+        self.zorder.setFont(myFont)
+        self.zorderedit = QLineEdit(self)
+        self.zorderedit.setObjectName("sccb_%s_zorder"%self.scatterCBindex)
+        self.zorderedit.setText(conf['zorder'])
+        self.plotarea.addWidget(self.zorderedit, self.plot_index, 1, 1, 1)
+        self.zorderedit.setToolTip(tooltips.zorder())
+        self.plot_index += 1
+
+
+        ####font axis
+        flab = QLabel('Font axis label:')  ###label
+        self.plotarea.addWidget(flab, self.plot_index , 0, 1, 1)
+        flab.setFont(myFont)
+        flab.setObjectName('sccb_%s_labelcbfont'%self.scatterCBindex)
+        self.fontlab_combo = QComboBox()
+        self.fontlab_combo.setObjectName('sccb_%s_cbfontaxis'%self.scatterCBindex)
+        self.plotarea.addWidget(self.fontlab_combo, self.plot_index , 1, 1, 2)
+        for i in namesfont:  ###fill it
+            self.fontlab_combo.addItem(i)
+        fonts = numpy.where(namesfont == conf['fontlabel'])
+        if len(fonts[0]) == 0:
+            from_conf = 0
+        else:
+            from_conf = fonts[0][0]
+        self.fontlab_combo.setCurrentIndex(from_conf) ##set default
+        self.plot_index += 1
+
+        ####font ticks
+        fticks = QLabel('Font ticks label:')  ###label
+        self.plotarea.addWidget(fticks, self.plot_index , 0, 1, 1)
+        fticks.setObjectName('sccb_%s_labelcbfonttick'%self.scatterCBindex)
+        fticks.setFont(myFont)
+        self.fticks_combo = QComboBox()  ##creation combobox
+        self.fticks_combo.setObjectName('sccb_%s_cbfontaxisticks'%self.scatterCBindex)
+        self.plotarea.addWidget(self.fticks_combo, self.plot_index , 1, 1, 1)
+        for i in namesfont:  
+            self.fticks_combo.addItem(i)
+        fonts = numpy.where(namesfont == conf['fonttickslabel'])
+        if len(fonts[0]) == 0:
+            from_conf = 0
+        else:
+            from_conf = fonts[0][0]
+        self.fticks_combo.setCurrentIndex(from_conf) ##set default
+        self.plot_index += 1
+
+        #labelsize
+        laxw = QLabel('Label size:')  ###label
+        self.plotarea.addWidget(laxw, self.plot_index , 0, 1, 1)
+        laxw.setObjectName('sccb_%s_labelcbsize'%self.scatterCBindex)
+        laxw.setFont(myFont)
+        self.laxwidth = QSpinBox()  ##spinbox linewidth
+        self.laxwidth.setObjectName('sccb_%s_labsize'%self.scatterCBindex)
+        self.plotarea.addWidget(self.laxwidth, self.plot_index , 1, 1, 1)
+        self.laxwidth.setMinimum(0)
+        self.laxwidth.setMaximum(100)
+        from_conf_ls = conf['Labelsize']
+        self.laxwidth.setValue(from_conf_ls) ###set default
+        self.plot_index += 1 
+
+
+        ####tick label size
+        ls = QLabel('Ticks Label Size:')  ###label
+        self.plotarea.addWidget(ls, self.plot_index , 0, 1, 1)
+        ls.setObjectName('sccb_%s_labelcbticksize'%self.scatterCBindex)
+        ls.setFont(myFont)
+        self.ls_box = QSpinBox()  ##spinbox linewidth
+        self.ls_box.setObjectName('sccb_%s_lst'%self.scatterCBindex)
+        self.plotarea.addWidget(self.ls_box, self.plot_index , 1, 1, 2)
+        self.ls_box.setMinimum(0)
+        self.ls_box.setMaximum(100)
+        from_conf_ls = conf['tickLabelsize']
+        self.ls_box.setValue(from_conf_ls) ###set default
+        self.plot_index += 1
+
+
+        #### f - marker_width
+        self.spad = QLabel('Labelpad:')
+        self.plotarea.addWidget(self.spad, self.plot_index, 0, 1, 1)
+        self.spad.setObjectName('sccb_%s_spad'%self.scatterCBindex)
+        self.spad.setFont(myFont)
+        self.labelpad = QSpinBox()  ##spinbox linewidth
+        self.plotarea.addWidget(self.labelpad, self.plot_index, 1, 1, 1)
+        self.labelpad.setMinimum(-100)
+        self.labelpad.setMaximum(100)
+        self.labelpad.setValue(int(conf['labelpad'])) ###set default
+        self.labelpad.setObjectName("sccb_%s_labelpad"%self.scatterCBindex)
+        self.plot_index += 1
+
+
+
+        ##events
+        self.comboY.currentIndexChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.comboX.currentIndexChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.comboZ.currentIndexChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.scatsize.valueChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.combomarkers.currentIndexChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.mapcombocolor.currentIndexChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.label.textChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.colorbarlabel.textChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.vmax.textChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.vmin.textChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.zorderedit.textChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.empty.stateChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.slider.valueChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.slidertr.valueChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.labelpad.valueChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.laxwidth.valueChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.ls_box.valueChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.fontlab_combo.currentIndexChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.fticks_combo.currentIndexChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.mapcombocolor.currentIndexChanged.connect(partial(self.make_scatplotCB, \
+                self.scatterCBindex, conf['file']))
+
+        self.make_scatplotCB(self.scatterCBindex, conf['file'])
+
+    def make_scatplotCB(self, index, inputfile):
+        '''
+        This function make the scatter plot.
+        we take as X, self.Xv, and a label of self.X
+                as Y, self.Yv, and a labal of self.Y
+        '''
+        ##check if this scatter plot was already in place
+        ##if yes, we remove it
+        if 'CBCB_'+str(index) in self.dico_widget.keys():
+            self.dico_widget['CBCB_'+str(index)].remove()
+            self.win.draw()
+        if 'sccb_'+str(index) in self.dico_widget.keys():
+            self.dico_widget['sccb_'+str(index)].remove()
+            self.win.draw()
+
+        ###get columns
+        columns = extract.header(inputfile)
+
+        ###get marker
+        a = self.plotarea.parentWidget().findChildren(QComboBox, 'sccb_%s_marker'%index)
+        marker = a[0].currentText()
+
+        ###get label
+        a = self.plotarea.parentWidget().findChildren(QLineEdit, 'sccb_%s_label'%index)
+        label = a[0].text()
+
+        ###get labelcb
+        a = self.plotarea.parentWidget().findChildren(QLineEdit, 'sccb_%s_labelcb'%index)
+        labelcb = a[0].text()
+
+        ###get label
+        a = self.plotarea.parentWidget().findChildren(QLineEdit, 'sccb_%s_zorder'%index)
+        zorder = a[0].text()
+        try:
+            zorder = float(zorder) 
+        except:
+            zorder = 1
+
+        ###get X data
+        a = self.plotarea.parentWidget().findChildren(QComboBox, 'sccb_%s_X'%index)
+        X = a[0].currentText()
+        try:
+            Xl = [float(i) for i in extract.column(X, columns, inputfile)]
+        except:
+            Xl = numpy.ones(len(extract.column(X, columns, inputfile)))
+
+        ###get Y data
+        a = self.plotarea.parentWidget().findChildren(QComboBox, 'sccb_%s_Y'%index)
+        Y = a[0].currentText()
+        try:
+            Yl = [float(i) for i in extract.column(Y, columns, inputfile)]
+        except: 
+            Yl = numpy.ones(len(extract.column(Y, columns, inputfile)))
+
+        ###get Y data
+        a = self.plotarea.parentWidget().findChildren(QComboBox, 'sccb_%s_Z'%index)
+        Z = a[0].currentText()
+        try:
+            Zl = [float(i) for i in extract.column(Z, columns, inputfile)]
+        except: 
+            Zl = numpy.ones(len(extract.column(Z, columns, inputfile)))
+
+        ###get color
+        a = self.plotarea.parentWidget().findChildren(QComboBox, 'sccb_%s_mapcolor'%index)
+        color = a[0].currentText()
+
+        ##size
+        a = self.plotarea.parentWidget().findChildren(QSpinBox, 'sccb_%s_size'%index)
+        size = a[0].value()
+
+        ##labelpad
+        a = self.plotarea.parentWidget().findChildren(QSpinBox, 'sccb_%s_labelpad'%index)
+        labelpad = a[0].value()
+
+        ##labelsize axis legend
+        a = self.plotarea.parentWidget().findChildren(QSpinBox, 'sccb_%s_labsize'%index)
+        labelsize = a[0].value()
+
+        ##labelsize tick
+        a = self.plotarea.parentWidget().findChildren(QSpinBox, 'sccb_%s_lst'%index)
+        tickfontsize = a[0].value()
+
+        ###font label
+        a = self.plotarea.parentWidget().findChildren(QComboBox, 'sccb_%s_cbfontaxis'%index)
+        fontlabel = a[0].currentText()
+
+        ###font tick label
+        a = self.plotarea.parentWidget().findChildren(QComboBox, 'sccb_%s_cbfontaxisticks'%index)
+        fontlabeltick = a[0].currentText()
+
+
+        ##checkbox
+        a = self.plotarea.parentWidget().findChildren(QCheckBox, 'sccb_%s_empty'%index)
+        empty = a[0].isChecked()
+
+        ##lw
+        a = self.plotarea.parentWidget().findChildren(QSlider, 'sccb_%s_slider'%index)
+        lw = a[0].value()/10
+
+        #tr
+        a = self.plotarea.parentWidget().findChildren(QSlider, 'sccb_%s_tr'%index)
+        tr = a[0].value()/10
+
+
+        ###get vmin
+        a = self.plotarea.parentWidget().findChildren(QLineEdit, 'sccb_%s_vmin'%index)
+        vmin = a[0].text()
+        try:
+            vmin = float(vmin)
+        except: 
+            vmin = 0
+
+        ###get vmin
+        a = self.plotarea.parentWidget().findChildren(QLineEdit, 'sccb_%s_vmax'%index)
+        vmax = a[0].text()
+        try:
+            vmax = float(vmax)
+        except: 
+            vmax = 0
+
+        if vmax < vmin:
+            vmin = 0 
+            vmax = 1
+
+        ###plot
+        if empty is True:
+            self.scattercb = self.plot.scatter(Xl, Yl, c=Zl, marker=marker, \
+                cmap=color, s=size, label=r'%s'%label, facecolor='none', lw=lw, \
+                alpha=tr, zorder = zorder)
+
+        else:
+            self.scattercb = self.plot.scatter(Xl, Yl, c=Zl, marker=marker, \
+                cmap=color, s=size, label=r'%s'%label, lw=lw, alpha=tr, \
+                zorder = zorder, vmin=vmin, vmax=vmax)
+
+        self.scattercb_CB = self.figure.colorbar(self.scattercb)
+        self.scattercb_CB.ax.yaxis.label.set_font_properties(fontlabel)
+        self.scattercb_CB.set_label(labelcb, rotation=270, labelpad=labelpad, fontsize=labelsize)
+        for l in self.scattercb_CB.ax.yaxis.get_ticklabels():
+            l.set_fontproperties(fontlabeltick)
+        self.scattercb_CB.ax.tick_params(labelsize=tickfontsize)
+
+
+        ###save the plot in a dictionnary
+        self.dico_widget['sccb_'+str(index)] = self.scattercb
+        self.dico_widget['CBCB_'+str(index)] = self.scattercb_CB
+
+        ###add legend
+        ###this is a quick and dirty trick to check if
+        ###the mathText entry are ok
+        labl = self.scattercb.get_label()
+        p = self.changeleg(labl)
+        if p == 'nok':
+            self.changeleg(self.ylabl.text())
+            self.scatter.set_label('retry')
+            self.changeylabl()
+        else:
+            self.changeleg(self.ylabl.text())
+
+        ###add legend
+        handles, labels = self.plot.get_legend_handles_labels()
+        self.plot.legend(handles, labels)
+
+        ##refresh legend
+        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend)
+
+        ###adjust axis
+        minx, maxx, miny, maxy = limits.get_axis_limits(self.loaded_plot, self) 
+        self.plot.set_xlim(minx, maxx)
+        self.plot.set_ylim(miny, maxy)
+
+        ###tight layouts
+        self.figure.tight_layout()
+
+        ##redraw
+        self.win.draw()
+
+
+
+
     def delete_widget(self, index, typeplot):
         '''
         This removes all the widgets of a given index
@@ -3062,7 +3650,6 @@ class Main_window(QWidget):
                 del self.dico_widget['fb_'+str(index)]
                 self.win.draw()
 
-
         if typeplot == 'stra':
             if 'stra_'+str(index) in self.dico_widget.keys():
                 self.dico_widget['stra_'+str(index)][0].remove()
@@ -3071,6 +3658,14 @@ class Main_window(QWidget):
         if typeplot == 'scat':
             if 'scat_'+str(index) in self.dico_widget.keys():
                 self.dico_widget['scat_'+str(index)].remove()
+                self.win.draw()
+
+        if typeplot == 'sccb':
+            if 'CBCB_'+str(index) in self.dico_widget.keys():
+                self.dico_widget['CBCB_'+str(index)].remove()
+                self.win.draw()
+            if 'sccb_'+str(index) in self.dico_widget.keys():
+                self.dico_widget['sccb_'+str(index)].remove()
                 self.win.draw()
 
         if typeplot == 'stri':

@@ -1,7 +1,3 @@
-.. VcatPy documentation master file, created by
-   sphinx-quickstart on Fri Mar  9 22:59:43 2018.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
 .. _graphics:
 
 |python| |Python36|  |Licence|
@@ -34,16 +30,18 @@
 
 
 Available elements
-******************
+==================
 
 When clicking on 'Add element in plot' you have these different choices:
 
  * line
  * line / new file
  * scatter
- * scatter /new file
+ * scatter / new file
+ * scatter CB
+ * scatter CB / new file
  * histogram
- * histogram /new file
+ * histogram / new file
  * Error bars
  * Error bars / new file
  * Image
@@ -129,6 +127,38 @@ The checkbox *Empty Marker* will remove the filling of the marker (e.g. filled c
 
 The two last slidebars make you control the tickness of the line drawing the marker and the transparency.
 
+Scatter plots with colorbar
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: example/colorbarwidgets.png
+    :align: right
+    :figwidth: 300px
+
+    Scatter plot with color bar related widgets
+
+The figure on the right shows the widget that will appear when you want to add scatter plot that includes a colorbar.
+
+
+The first line shows you the name of the loaded file for which you choosed to draw the scatter plot.
+On the second line, you have a text field (with 'scatter plot with color bar number X' by default). This is where you enter the label of your plot for the legend.
+The *delete button* allows you to remove the scatterp lot from the plot and also all the associated widgets in the graphic element panel.
+Then you have the label for the color bar with *color bar label*.
+As previsouxly the *X:* and *Y:* ask for the column corresponding to the X and Y axis of your plot from your input catalog. Now you have a third column to give (Z) that corresponds to the data given by the color bar.
+The *colorbar* widget makes you change the color of each points.
+The *vmin* and *vmax* will give the opportunity to modify the limits of the color bar.
+The *marker* widget allows you to change the symbol you want to use for your scatter plot.
+The *size* spinbox will change the size of the symbols.
+The checkbox *Empty Marker* will remove the filling of the marker (e.g. filled circle --> empty circle).
+
+.. warning::
+
+    If your symbols as only lines (e.g. crosses, '+'...) checking the 'Empty Marker' box will 
+    make your symbol disappear.
+
+The two last slidebars make you control the tickness of the line drawing the marker and the transparency.
+
+Then you have the *zorder* parameter that controls how the data are pilling up. 
+And finally you have all the properties for the color bar itself. You can control the fonts of both the label of the colorbar and the tick label as well as their sizes. The labelpad allows you to move the colorbar label closer to the colorbar or awys from it.
 
 
 Histogram plots

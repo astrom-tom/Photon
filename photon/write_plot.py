@@ -42,6 +42,7 @@ def save(filesave, plot):
     plotconfig.add_section('Types')
     plotconfig.set('Types', 'line', str(plot.lineindex))
     plotconfig.set('Types', 'scatter', str(plot.scatterindex))
+    plotconfig.set('Types', 'scatter_CB', str(plot.scatterCBindex))
     plotconfig.set('Types', 'error', str(plot.errorindex))
     plotconfig.set('Types', 'text', str(plot.text_index))
     plotconfig.set('Types', 'segments', str(plot.straight_index))
@@ -60,6 +61,7 @@ def save(filesave, plot):
 
     config = save_line(plot, plotconfig) 
     config = save_scatter(plot, config)
+    config = save_scatterCB(plot, config)
     config = save_text(plot, config)
     config = save_straight(plot, config)
     config = save_span(plot, config)
@@ -159,6 +161,124 @@ def save_line(plot, plotconfig):
 
         k+=1
     return plotconfig
+
+def save_scatterCB(plot, plotconfig):
+
+    typeplot = 'sccb'
+
+    #####check the index that are left
+    idents = []
+    name = plot.plotarea.parentWidget().findChildren(QLabel)
+    for j in name:
+        if j.objectName()[:4] == 'sccb' and j.objectName()[-9:] == 'labelfile':
+            ident = int(j.objectName()[5:6])
+            idents.append(ident)
+
+
+    plotconfig.set('Types', 'scatter_CB', str(len(idents)))
+    k=0
+    for i in idents:
+        ##create the section in the configuration
+        plotconfig.add_section('%s_%s'%(typeplot, k+1))
+
+        ##filename
+        name = plot.plotarea.parentWidget().findChildren(QLabel)
+        for j in name:
+            if j.objectName() == 'sccb_%s_labelfile'%(i):
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'file', j.text())
+        ###retrieve the label of the plot
+        Edits = plot.plotarea.parentWidget().findChildren(QLineEdit)
+        for j in Edits:
+            if j.objectName() == 'sccb_%s_label'%str(i):
+               label = j.text()  
+               plotconfig.set('%s_%s'%(typeplot, k+1), 'label', label)
+
+            if j.objectName() == 'sccb_%s_labelcb'%str(i):
+               label = j.text()  
+               plotconfig.set('%s_%s'%(typeplot, k+1), 'labelcb', label)
+
+            if j.objectName() == 'sccb_%s_zorder'%str(i):
+               zorder = j.text()
+               plotconfig.set('%s_%s'%(typeplot,k+1), 'zorder', zorder)
+
+            if j.objectName() == 'sccb_%s_vmin'%str(i):
+               zorder = j.text()
+               plotconfig.set('%s_%s'%(typeplot,k+1), 'vmin', zorder)
+
+            if j.objectName() == 'sccb_%s_vmax'%str(i):
+               zorder = j.text()
+               plotconfig.set('%s_%s'%(typeplot,k+1), 'vmax', zorder)
+
+        ###retrieve combo boxes
+        combo = plot.plotarea.parentWidget().findChildren(QComboBox)
+        for j in combo:
+            if j.objectName() == 'sccb_%s_X'%(i):
+                X = j.currentText() 
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'X', X)
+            if j.objectName() == 'sccb_%s_Y'%(i):
+                Y = j.currentText()
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'Y', Y)
+            if j.objectName() == 'sccb_%s_Z'%(i):
+                Y = j.currentText()
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'Z', Y) 
+            if j.objectName() == 'sccb_%s_mapcolor'%(i):
+                color = j.currentText()
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'Colormap', color)
+            if j.objectName() == 'sccb_%s_cbfontaxis'%(i):
+                marker = j.currentText()
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'fontlabel', marker)
+            if j.objectName() == 'sccb_%s_cbfontaxisticks'%(i):
+                marker = j.currentText()
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'fonttickslabel', marker)
+            if j.objectName() == 'sccb_%s_marker'%(i):
+                marker = j.currentText()
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'marker', marker)
+
+
+
+        ###retrieve check boxes
+        checks = plot.plotarea.parentWidget().findChildren(QCheckBox)
+        for j in checks:
+            if j.objectName() == 'sccb_%s_empty'%(i):
+                fb = j.isChecked() 
+                if fb == False:
+                    fb = 'No'
+                if fb == True:
+                    fb = 'Yes'
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'empty', fb)
+         
+        ###retrieve slider 
+        slide = plot.plotarea.parentWidget().findChildren(QSlider)
+        for j in slide:
+            if j.objectName() == 'sccb_%s_slider'%str(i):
+                sli = j.value()
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'thickness', str(sli))
+            if j.objectName() == 'sccb_%s_tr'%str(i):
+                tr = j.value()
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'transparency', str(tr))
+
+        ###retrieve spinbox
+        spin = plot.plotarea.parentWidget().findChildren(QSpinBox)
+        for j in spin:
+            if j.objectName() == 'sccb_%s_size'%str(i):
+                sm = j.value()
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'size', str(sm))
+            if j.objectName() == 'sccb_%s_labelpad'%str(i):
+                sm = j.value()
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'labelpad', str(sm))
+            if j.objectName() == 'sccb_%s_lst'%str(i):
+                sm = j.value()
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'tickLabelsize', str(sm))
+            if j.objectName() == 'sccb_%s_labsize'%str(i):
+                sm = j.value()
+                plotconfig.set('%s_%s'%(typeplot, k+1), 'Labelsize', str(sm))
+
+
+
+
+        k+=1
+    return plotconfig
+
 
 def save_scatter(plot, plotconfig):
 

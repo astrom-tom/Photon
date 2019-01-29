@@ -97,6 +97,16 @@ def get_axis_limits(loaded_plot, full):
                 ys.append(min(y))
                 ys.append(max(y))
 
+        if 'sccb_' in j[:-1]:
+            for i in range(full.scatterCBindex):
+                x ,y = full.dico_widget['sccb_'+str(i+1)].get_offsets().T
+                xs.append(min(x))
+                xs.append(max(x))
+                ys.append(min(y))
+                ys.append(max(y))
+
+
+
         if 'erro_' in j[:-1]:
             for i in range(full.errorindex):
                 x = full.dico_widget['erro_'+str(i+1)][0].get_xdata()

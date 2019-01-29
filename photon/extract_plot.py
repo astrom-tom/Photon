@@ -34,6 +34,7 @@ class loadplot(object):
         TYPES = {}
         TYPES['line'] = conf.getint('Types', 'line')
         TYPES['scatter'] = conf.getint('Types', 'scatter')
+        TYPES['scatter_CB'] = conf.getint('Types', 'scatter_cb')
         TYPES['error'] = conf.getint('Types', 'error')
         TYPES['text'] = conf.getint('Types', 'text')
         TYPES['segments'] = conf.getint('Types', 'segments')
@@ -57,6 +58,9 @@ class loadplot(object):
 
         for i in range(TYPES['scatter']):
             self.get_scat_conf(conf, i+1)
+
+        for i in range(TYPES['scatter_CB']):
+            self.get_scatcb_conf(conf, i+1)
 
         for i in range(TYPES['text']):
             self.get_text_conf(conf, i+1)
@@ -130,6 +134,34 @@ class loadplot(object):
         SCAT['size'] = conf.getint('scat_%s'%n, 'size')
         SCAT['zorder'] = conf.get('scat_%s'%n, 'zorder')
         self.plotconf['Scat_%s'%n] = SCAT
+
+    def get_scatcb_conf(self, conf, n):
+        '''
+        get the configuration the for the scatter plots number n
+        '''
+        SCATCB = {}
+        SCATCB['file'] = conf.get('sccb_%s'%n, 'file')
+        SCATCB['label'] = conf.get('sccb_%s'%n, 'label')
+        SCATCB['labelcb'] = conf.get('sccb_%s'%n, 'labelcb')
+        SCATCB['x'] = conf.get('sccb_%s'%n, 'x')
+        SCATCB['y'] = conf.get('sccb_%s'%n, 'y')
+        SCATCB['z'] = conf.get('sccb_%s'%n, 'z')
+        SCATCB['colormap'] = conf.get('sccb_%s'%n, 'colormap')
+        SCATCB['marker'] = conf.get('sccb_%s'%n, 'marker')
+        SCATCB['thickness'] = conf.get('sccb_%s'%n, 'thickness')
+        SCATCB['empty'] = conf.get('sccb_%s'%n, 'empty')
+        SCATCB['transparency'] = conf.get('sccb_%s'%n, 'transparency')
+        SCATCB['size'] = conf.getint('sccb_%s'%n, 'size')
+        SCATCB['vmin'] = conf.get('sccb_%s'%n, 'vmin')
+        SCATCB['vmax'] = conf.get('sccb_%s'%n, 'vmax')
+        SCATCB['zorder'] = conf.get('sccb_%s'%n, 'zorder')
+        SCATCB['fontlabel'] = conf.get('sccb_%s'%n, 'fontlabel')
+        SCATCB['fonttickslabel'] = conf.get('sccb_%s'%n, 'fonttickslabel')
+        SCATCB['Labelsize'] = conf.getint('sccb_%s'%n, 'Labelsize')
+        SCATCB['tickLabelsize'] = conf.getint('sccb_%s'%n, 'tickLabelsize')
+        SCATCB['labelpad'] = conf.get('sccb_%s'%n, 'labelpad')
+
+        self.plotconf['sccb_%s'%n] = SCATCB
 
     def get_err_conf(self, conf, n):
         '''

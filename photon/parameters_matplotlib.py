@@ -899,3 +899,4 @@ def location_leg(loc):
             'center left', 'center right', 'lower center', 'upper center', 'center']
     return numpy.where(loc==numpy.array(locations))[0][0]
      
+
