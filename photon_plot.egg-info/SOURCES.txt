@@ -55,6 +55,8 @@ photon/docs/build/html/searchindex.js
 photon/docs/build/html/usage.html
 photon/docs/build/html/_images/band.png
 photon/docs/build/html/_images/band_widgets.png
+photon/docs/build/html/_images/colorbar.png
+photon/docs/build/html/_images/colorbarwidgets.png
 photon/docs/build/html/_images/custom_all.png
 photon/docs/build/html/_images/errobars_black.png
 photon/docs/build/html/_images/error.png
@@ -90,6 +92,7 @@ photon/docs/build/html/_static/down.png
 photon/docs/build/html/_static/file.png
 photon/docs/build/html/_static/jquery-3.2.1.js
 photon/docs/build/html/_static/jquery.js
+photon/docs/build/html/_static/language_data.js
 photon/docs/build/html/_static/minus.png
 photon/docs/build/html/_static/plus.png
 photon/docs/build/html/_static/pygments.css
@@ -356,6 +359,8 @@ photon/docs/source/example/all.png
 photon/docs/source/example/background.png
 photon/docs/source/example/band.png
 photon/docs/source/example/band_widgets.png
+photon/docs/source/example/colorbar.png
+photon/docs/source/example/colorbarwidgets.png
 photon/docs/source/example/custom_all.png
 photon/docs/source/example/errobars_black.png
 photon/docs/source/example/error.png

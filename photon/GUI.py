@@ -27,7 +27,7 @@ import PyQt5.QtGui as QtGui
 from PyQt5.QtWidgets import QApplication, QGridLayout, QWidget, QVBoxLayout, \
         QTabWidget, QTabWidget, QLineEdit, QLineEdit, QInputDialog, QCheckBox, \
         QHBoxLayout, QScrollArea, QComboBox, QPushButton, QLabel, QSlider, QFileDialog,\
-        QSpinBox, QFrame
+        QSpinBox, QFrame, QSplitter
 
 ###matplotlib
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -125,10 +125,17 @@ class Main_window(QWidget):
         '''
 
         ### 1 we create the grid
-        self.Global = QVBoxLayout(self)
-        self.setLayout(self.Global)
+        hbox = QHBoxLayout(self)
+
+        split = QSplitter(QtCore.Qt.Vertical)
+
         grid = QGridLayout()
-        self.Global.addLayout(grid)
+        grid_p = QWidget()
+        grid_p.setLayout(grid)
+        
+        hbox.addWidget(split)
+        self.setLayout(hbox)
+
 
         ### a- space for plot
         self.tab = QTabWidget()
@@ -137,9 +144,9 @@ class Main_window(QWidget):
         self.win = FigureCanvas(self.figure)
         self.toolbar = NavigationToolbar(self.win, self.win)
         grid.addWidget(self.win, 0, 0, 1, 3)
-        grid.addWidget(self.toolbar, 1, 0, 1, 3)
+        grid.addWidget(self.toolbar, 1, 0, 1, 3) 
         self.plot = self.figure.add_subplot(111)
-        self.plot.legend()
+        #self.plot.legend()
 
         #### b- plot!
         self.buttonaddcurve = QPushButton("Add element in plot")
@@ -173,8 +180,10 @@ class Main_window(QWidget):
 
         ####we create a horizontal split and add it the to global
         ####box
+
         panels = QHBoxLayout()
-        self.Global.addLayout(panels)
+        panels_cont = QWidget()
+        panels_cont.setLayout(panels)
 
         ###multi curve area
         #####we create a scroll area what we put inside the panels
@@ -257,9 +266,12 @@ class Main_window(QWidget):
                  
         pm.ticks(self.properties, self.win, self.plot, self.figure, self.config.ticks)
         pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend)
-
+    
         self.figure.tight_layout()
         self.win.draw()
+
+        split.addWidget(grid_p)
+        split.addWidget(panels_cont)
 
         dir_path = os.path.dirname(os.path.realpath(__file__))
         logo = os.path.join(dir_path, 'logo.png')

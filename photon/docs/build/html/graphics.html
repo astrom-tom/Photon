@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Available elements &mdash; Photon 0.2.2 documentation</title>
+  <title>Available elements &mdash; Photon 0.3.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.2
+                0.3
               </div>
             
           
@@ -166,9 +166,11 @@
 <li>line</li>
 <li>line / new file</li>
 <li>scatter</li>
-<li>scatter /new file</li>
+<li>scatter / new file</li>
+<li>scatter CB</li>
+<li>scatter CB / new file</li>
 <li>histogram</li>
-<li>histogram /new file</li>
+<li>histogram / new file</li>
 <li>Error bars</li>
 <li>Error bars / new file</li>
 <li>Image</li>
@@ -239,9 +241,35 @@ make your symbol disappear.</p>
 </div>
 <p>The two last slidebars make you control the tickness of the line drawing the marker and the transparency.</p>
 </div>
+<div class="section" id="scatter-plots-with-colorbar">
+<h2>Scatter plots with colorbar<a class="headerlink" href="#scatter-plots-with-colorbar" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-right" id="id4" style="width: 300px">
+<img alt="_images/colorbarwidgets.png" src="_images/colorbarwidgets.png" />
+<p class="caption"><span class="caption-text">Scatter plot with color bar related widgets</span></p>
+</div>
+<p>The figure on the right shows the widget that will appear when you want to add scatter plot that includes a colorbar.</p>
+<p>The first line shows you the name of the loaded file for which you choosed to draw the scatter plot.
+On the second line, you have a text field (with ‘scatter plot with color bar number X’ by default). This is where you enter the label of your plot for the legend.
+The <em>delete button</em> allows you to remove the scatterp lot from the plot and also all the associated widgets in the graphic element panel.
+Then you have the label for the color bar with <em>color bar label</em>.
+As previsouxly the <em>X:</em> and <em>Y:</em> ask for the column corresponding to the X and Y axis of your plot from your input catalog. Now you have a third column to give (Z) that corresponds to the data given by the color bar.
+The <em>colorbar</em> widget makes you change the color of each points.
+The <em>vmin</em> and <em>vmax</em> will give the opportunity to modify the limits of the color bar.
+The <em>marker</em> widget allows you to change the symbol you want to use for your scatter plot.
+The <em>size</em> spinbox will change the size of the symbols.
+The checkbox <em>Empty Marker</em> will remove the filling of the marker (e.g. filled circle –&gt; empty circle).</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If your symbols as only lines (e.g. crosses, ‘+’…) checking the ‘Empty Marker’ box will
+make your symbol disappear.</p>
+</div>
+<p>The two last slidebars make you control the tickness of the line drawing the marker and the transparency.</p>
+<p>Then you have the <em>zorder</em> parameter that controls how the data are pilling up.
+And finally you have all the properties for the color bar itself. You can control the fonts of both the label of the colorbar and the tick label as well as their sizes. The labelpad allows you to move the colorbar label closer to the colorbar or awys from it.</p>
+</div>
 <div class="section" id="histogram-plots">
 <h2>Histogram plots<a class="headerlink" href="#histogram-plots" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id4" style="width: 300px">
+<div class="figure align-right" id="id5" style="width: 300px">
 <img alt="_images/histplot.png" src="_images/histplot.png" />
 <p class="caption"><span class="caption-text">Histogram related widgets</span></p>
 </div>
@@ -262,7 +290,7 @@ Finally, a check box <em>norm</em> allows one to normalise the histogram. It wil
 </div>
 <div class="section" id="errorbar-plots">
 <h2>Errorbar plots<a class="headerlink" href="#errorbar-plots" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id5" style="width: 300px">
+<div class="figure align-right" id="id6" style="width: 300px">
 <img alt="_images/error.png" src="_images/error.png" />
 <p class="caption"><span class="caption-text">Errorbar plot related widgets</span></p>
 </div>
@@ -283,7 +311,7 @@ Finally you can control the tickness of the errorbars and the size of the errorb
 </div>
 <div class="section" id="image-plots">
 <h2>Image plots<a class="headerlink" href="#image-plots" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id6" style="width: 300px">
+<div class="figure align-right" id="id7" style="width: 300px">
 <img alt="_images/image.png" src="_images/image.png" />
 <p class="caption"><span class="caption-text">Image plot related widgets</span></p>
 </div>
@@ -294,7 +322,7 @@ Finally you can control the tickness of the errorbars and the size of the errorb
 </div>
 <div class="section" id="straight-lines">
 <h2>Straight lines<a class="headerlink" href="#straight-lines" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id7" style="width: 300px">
+<div class="figure align-right" id="id8" style="width: 300px">
 <img alt="_images/straightline.png" src="_images/straightline.png" />
 <p class="caption"><span class="caption-text">Straight line related widgets</span></p>
 </div>
@@ -308,7 +336,7 @@ And finally the <em>slide bar</em> will help you to change the tickness of the l
 </div>
 <div class="section" id="spans">
 <h2>Spans<a class="headerlink" href="#spans" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id8" style="width: 300px">
+<div class="figure align-right" id="id9" style="width: 300px">
 <img alt="_images/span.png" src="_images/span.png" />
 <p class="caption"><span class="caption-text">Spanning stripes related widgets</span></p>
 </div>
@@ -321,7 +349,7 @@ And finally the slide bar change the transparency of the strip.</p>
 </div>
 <div class="section" id="text">
 <h2>Text<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id9" style="width: 300px">
+<div class="figure align-right" id="id10" style="width: 300px">
 <img alt="_images/text.png" src="_images/text.png" />
 <p class="caption"><span class="caption-text">Text related widgets</span></p>
 </div>
@@ -464,7 +492,7 @@ It will write the full path of the file with respect to the directory where you 
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, R. Thomas.
+        &copy; Copyright 2018, R. Thomas
 
     </p>
   </div>
@@ -483,20 +511,14 @@ It will write the full path of the file with respect to the directory where you 
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.2.2',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
 
   
 
