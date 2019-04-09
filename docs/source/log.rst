@@ -33,6 +33,16 @@ Change log
 ----------
 ----------
 
+* **photon 0.3.5**:
+
+  * Bug fix: column parameter
+
+
+
+* **photon 0.3.3**:
+
+  * add: possibility to split legend in multiplt columns
+  * add: scatter bar with color bar
 
 * **photon 0.2.2**:
 

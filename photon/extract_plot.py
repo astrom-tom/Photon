@@ -34,7 +34,10 @@ class loadplot(object):
         TYPES = {}
         TYPES['line'] = conf.getint('Types', 'line')
         TYPES['scatter'] = conf.getint('Types', 'scatter')
-        TYPES['scatter_CB'] = conf.getint('Types', 'scatter_cb')
+        try:
+            TYPES['scatter_CB'] = conf.getint('Types', 'scatter_cb')
+        except:
+            TYPES['scatter_CB'] = 0
         TYPES['error'] = conf.getint('Types', 'error')
         TYPES['text'] = conf.getint('Types', 'text')
         TYPES['segments'] = conf.getint('Types', 'segments')
@@ -49,6 +52,10 @@ class loadplot(object):
         TYPES['ymax'] = conf.get('Types', 'ymax')
         TYPES['xlabel'] = conf.get('Types', 'x_label')
         TYPES['ylabel'] = conf.get('Types', 'y_label')
+        try:
+            TYPES['ncol'] = conf.get('Types', 'ncol')
+        except:
+            TYPES['ncol'] = '1'
 
         self.plotconf['types'] = TYPES
 

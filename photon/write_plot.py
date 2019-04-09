@@ -57,6 +57,7 @@ def save(filesave, plot):
     plotconfig.set('Types', 'ymax', str(plot.plot.get_ylim()[1]))
     plotconfig.set('Types', 'x_label', str(plot.plot.get_xlabel()))
     plotconfig.set('Types', 'y_label', str(plot.plot.get_ylabel()))
+    plotconfig.set('Types', 'ncol', plot.loaded_plot.plotconf['types']['ncol'])
 
 
     config = save_line(plot, plotconfig) 
@@ -370,13 +371,13 @@ def save_text(plot, plotconfig):
     idents = []
     name = plot.plotarea.parentWidget().findChildren(QLineEdit)
     for j in name:
+        
         if j.objectName()[:4] == 'text' and j.objectName()[-4:] == 'text':
             ident = int(j.objectName()[5:-5])
             idents.append(ident)
 
     
     plotconfig.set('Types', 'text', str(len(idents)))
-
 
     ##and create sections for each of the plot
     k=0
@@ -435,9 +436,9 @@ def save_straight(plot, plotconfig):
     idents = []
     name = plot.plotarea.parentWidget().findChildren(QLineEdit)
     for j in name:
-        if j.objectName()[:4] == 'stra' and j.objectName()[-4:] == 'coor':
-            ident = int(j.objectName()[5:6])
-            idents.append(ident)
+        #if j.objectName()[:4] == 'stra' and j.objectName()[-4:] == 'coor':
+        if j.objectName().split('_')[0] == 'stra' and j.objectName().split('_')[-1] == 'coor':
+            idents.append(int(j.objectName().split('_')[1]))
 
     plotconfig.set('Types', 'segments', str(len(idents)))
 

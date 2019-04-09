@@ -49,12 +49,12 @@ For the moment, the only way to use Photon is to download the source code from t
 * Scipy v1.0.1: Some usefull function for smoothing / images
 * astropy v3.0.2: For fits image opening
 
-Photon is available in the pypi test repository. To install it:
+Photon is available in the pypi repository. To install it:
 
 .. code-block:: shell
      :linenos:
 
-     pip install --extra-index-url https://test.pypi.org/simple photon_plot --user
+     pip install photon_plot --user
 
 
 The help

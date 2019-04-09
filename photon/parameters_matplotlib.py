@@ -719,7 +719,7 @@ def fonts_event(win, plot, figure, fontlab_box, fticks_box, conf):
 ##############################################
 ######## Legend ##############################
 ##############################################
-def legend(grid, win, plot, figure, conf):
+def legend(grid, win, plot, figure, conf, loaded_plot):
     '''
     This function creates the widget
     for legend properties
@@ -730,6 +730,7 @@ def legend(grid, win, plot, figure, conf):
     win         FigureCanvas object
     plot        subplot object
     figure      Figure object
+    loaded_plot configuration
 
     Return:
     -------
@@ -821,24 +822,45 @@ def legend(grid, win, plot, figure, conf):
     name_id = location_leg(conf['location'])
     leg_loc_combo.setCurrentIndex(name_id) ##set default
 
+    ####ncol
+    leg_ncol = QLabel('Number of columns:')  ###label
+    grid.addWidget(leg_ncol, 29, 0, 1, 1)
+    leg_ncol.setFont(myFont)
+    leg_ncol_combo = QComboBox()  ##creation combobox
+    grid.addWidget(leg_ncol_combo, 29, 1, 1, 2)
+    columns = ['1','2','3','4','5','6','7','8','9','10']
+    for i in columns:
+        leg_ncol_combo.addItem(i)
+
+    col = numpy.where(numpy.array(columns) == loaded_plot.plotconf['types']['ncol'])
+    if len(col[0]) == 0:
+        col_conf = 0
+    else:
+        col_conf = col[0][0]
+    leg_ncol_combo.setCurrentIndex(col_conf) ##set default
 
     ###load default values
-    legend_event(win, plot, figure, frame, lfsize, flegend_combo, leg_col_combo, conf, leg_loc_combo) 
+    legend_event(win, plot, figure, frame, lfsize, flegend_combo, leg_col_combo, \
+            conf, leg_loc_combo, leg_ncol_combo, loaded_plot) 
 
     ##events
     frame.stateChanged.connect(partial(legend_event, win, plot, figure, \
-            frame, lfsize, flegend_combo, leg_col_combo, conf, leg_loc_combo))
+            frame, lfsize, flegend_combo, leg_col_combo, conf, leg_loc_combo, leg_ncol_combo, loaded_plot))
     lfsize.valueChanged.connect(partial(legend_event, win, plot, figure, \
-            frame, lfsize, flegend_combo, leg_col_combo, conf, leg_loc_combo))
+            frame, lfsize, flegend_combo, leg_col_combo, conf, leg_loc_combo, leg_ncol_combo, loaded_plot))
     flegend_combo.currentIndexChanged.connect(partial(legend_event, win, plot, figure, \
-            frame, lfsize, flegend_combo, leg_col_combo, conf, leg_loc_combo))
+            frame, lfsize, flegend_combo, leg_col_combo, conf, leg_loc_combo, leg_ncol_combo, loaded_plot))
     leg_col_combo.currentIndexChanged.connect(partial(legend_event, win, plot, figure, \
-            frame, lfsize, flegend_combo, leg_col_combo, conf, leg_loc_combo))
+            frame, lfsize, flegend_combo, leg_col_combo, conf, leg_loc_combo, leg_ncol_combo, loaded_plot))
     leg_loc_combo.currentIndexChanged.connect(partial(legend_event, win, plot, figure, \
-            frame, lfsize, flegend_combo, leg_col_combo, conf, leg_loc_combo))
+            frame, lfsize, flegend_combo, leg_col_combo, conf, leg_loc_combo, leg_ncol_combo, loaded_plot))
+    leg_ncol_combo.currentIndexChanged.connect(partial(legend_event, win, plot, figure, \
+            frame, lfsize, flegend_combo, leg_col_combo, conf, leg_loc_combo, leg_ncol_combo, loaded_plot))
 
 
-def legend_event(win, plot, figure, frame, lfsize, flegend_box, leg_col_box, conf, leg_loc_box):
+
+def legend_event(win, plot, figure, frame, lfsize, flegend_box, leg_col_box, \
+        conf, leg_loc_box, ncol_combo, loaded_plot):
     '''
     This function change the propertoes of the legend.
     Parameters:
@@ -848,8 +870,10 @@ def legend_event(win, plot, figure, frame, lfsize, flegend_box, leg_col_box, con
     figure          Figure, obj
     frame           QCheckBox
     lfsize          QSpinBox
-    flegend_comvo   QComboBox
+    flegend_combo   QComboBox
     leg_col_combo   QComboBox
+    ncol_combo      QComboBox
+    loaded_plot     conf
     '''
 
     ####retrieve information
@@ -858,6 +882,7 @@ def legend_event(win, plot, figure, frame, lfsize, flegend_box, leg_col_box, con
     flegend = flegend_box.currentText()
     leg_col = leg_col_box.currentText()
     leg_loc = leg_loc_box.currentText()
+    ncol = ncol_combo.currentText()
 
     ##update conf
     if frame_status == True:
@@ -869,11 +894,11 @@ def legend_event(win, plot, figure, frame, lfsize, flegend_box, leg_col_box, con
     conf['Label_font_color'] = leg_col
     conf['Legend_font'] = flegend
     conf['location'] = leg_loc
-
+    loaded_plot.plotconf['types']['ncol'] = ncol
 
     #####
     leg = plot.legend(loc = leg_loc, \
-            fontsize = fontsize)
+            fontsize = fontsize, ncol=int(ncol))
 
     leg.get_frame().set_facecolor('none')
 

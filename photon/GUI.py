@@ -27,7 +27,7 @@ import PyQt5.QtGui as QtGui
 from PyQt5.QtWidgets import QApplication, QGridLayout, QWidget, QVBoxLayout, \
         QTabWidget, QTabWidget, QLineEdit, QLineEdit, QInputDialog, QCheckBox, \
         QHBoxLayout, QScrollArea, QComboBox, QPushButton, QLabel, QSlider, QFileDialog,\
-        QSpinBox, QFrame, QSplitter
+        QSpinBox, QFrame, QSplitter, QShortcut
 
 ###matplotlib
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -136,6 +136,12 @@ class Main_window(QWidget):
         hbox.addWidget(split)
         self.setLayout(hbox)
 
+        ###shortcuts
+        new_plot = QShortcut(QtGui.QKeySequence("p"), self)
+        new_plot.activated.connect(self.adddisplay)
+
+        save_plot_cut = QShortcut(QtGui.QKeySequence("s"), self)
+        save_plot_cut.activated.connect(self.save_fig)
 
         ### a- space for plot
         self.tab = QTabWidget()
@@ -146,7 +152,6 @@ class Main_window(QWidget):
         grid.addWidget(self.win, 0, 0, 1, 3)
         grid.addWidget(self.toolbar, 1, 0, 1, 3) 
         self.plot = self.figure.add_subplot(111)
-        #self.plot.legend()
 
         #### b- plot!
         self.buttonaddcurve = QPushButton("Add element in plot")
@@ -180,7 +185,6 @@ class Main_window(QWidget):
 
         ####we create a horizontal split and add it the to global
         ####box
-
         panels = QHBoxLayout()
         panels_cont = QWidget()
         panels_cont.setLayout(panels)
@@ -206,7 +210,6 @@ class Main_window(QWidget):
         buttonsave.clicked.connect(self.save_fig)
         self.plot_index += 1
  
-
         ###parameter area
         ### a - we create the grid in a scroll area
         scroll = QScrollArea()
@@ -223,7 +226,7 @@ class Main_window(QWidget):
             self.loaded_plot = type('test', (object,), {})()
             self.loaded_plot.plotconf = {}
             self.loaded_plot.plotconf['types'] = {'xmin':'Xmin', 'xmax':'Xmax', \
-                    'ymin':'Ymin', 'ymax':'Ymax'}
+                    'ymin':'Ymin', 'ymax':'Ymax', 'ncol':'1'}
 
         pm.axis_lim(self.properties, self.win, self.plot, self.figure, self.loaded_plot, self.config)
         pm.background(self.properties, self.win, self.plot, self.figure, self.config)
@@ -263,9 +266,9 @@ class Main_window(QWidget):
                     self.add_image(self.loaded_plot.plotconf[i])
                 if i[:4] == 'Band':
                     self.add_band(self.loaded_plot.plotconf[i])
-                 
+
         pm.ticks(self.properties, self.win, self.plot, self.figure, self.config.ticks)
-        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend)
+        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend, self.loaded_plot)
     
         self.figure.tight_layout()
         self.win.draw()
@@ -275,6 +278,9 @@ class Main_window(QWidget):
 
         dir_path = os.path.dirname(os.path.realpath(__file__))
         logo = os.path.join(dir_path, 'logo.png')
+
+        
+
 
         self.setWindowIcon(QtGui.QIcon(logo))
         self.show()
@@ -390,7 +396,6 @@ class Main_window(QWidget):
                 inputfile = self.browse()
                 if inputfile != None:
                     self.add_hist(inputfile)
-
             if typ == 'Error / New file':
                 inputfile = self.browse()
                 if inputfile != None:
@@ -651,7 +656,7 @@ class Main_window(QWidget):
         self.plot.set_ylim(miny, maxy)
 
         ##update legend
-        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend)
+        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend, self.loaded_plot)
 
         ###tight layouts
         self.figure.tight_layout()
@@ -1156,7 +1161,7 @@ class Main_window(QWidget):
         self.plot.set_ylim(miny, maxy)
 
         ##update legend
-        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend)
+        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend, self.loaded_plot)
 
         ###tight layouts
         self.figure.tight_layout()
@@ -2081,7 +2086,7 @@ class Main_window(QWidget):
         self.plot.legend(handles, labels)
 
         ##update legend
-        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend)
+        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend, self.loaded_plot)
 
         ###tight layouts
         self.figure.tight_layout()
@@ -2700,7 +2705,7 @@ class Main_window(QWidget):
         self.plot.legend(handles, labels)
 
         ##update legend
-        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend)
+        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend, self.loaded_plot)
 
         ###adjust axis
         minx, maxx, miny, maxy = limits.get_axis_limits(self.loaded_plot, self) 
@@ -3023,7 +3028,7 @@ class Main_window(QWidget):
         self.plot.legend(handles, labels)
 
         ##refresh legend
-        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend)
+        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend, self.loaded_plot)
 
         ###adjust axis
         minx, maxx, miny, maxy = limits.get_axis_limits(self.loaded_plot, self) 
@@ -3584,7 +3589,7 @@ class Main_window(QWidget):
         self.plot.legend(handles, labels)
 
         ##refresh legend
-        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend)
+        pm.legend(self.properties, self.win, self.plot, self.figure, self.config.legend, self.loaded_plot)
 
         ###adjust axis
         minx, maxx, miny, maxy = limits.get_axis_limits(self.loaded_plot, self) 
