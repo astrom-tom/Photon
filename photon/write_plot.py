@@ -83,7 +83,7 @@ def save_line(plot, plotconfig):
     name = plot.plotarea.parentWidget().findChildren(QLabel)
     for j in name:
         if j.objectName()[:4] == 'line' and j.objectName()[-9:] == 'labelfile':
-            ident = int(j.objectName()[5:6])
+            ident = int(j.objectName()[5:-10])
             idents.append(ident)
 
     plotconfig.set('Types', 'line', str(len(idents)))
