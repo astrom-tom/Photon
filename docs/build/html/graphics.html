@@ -13,6 +13,8 @@
 
   
   
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
   
   
 
@@ -165,30 +167,30 @@
 <p>When clicking on ‘Add element in plot’ you have these different choices:</p>
 <blockquote>
 <div><ul class="simple">
-<li>line</li>
-<li>line / new file</li>
-<li>scatter</li>
-<li>scatter / new file</li>
-<li>scatter CB</li>
-<li>scatter CB / new file</li>
-<li>histogram</li>
-<li>histogram / new file</li>
-<li>Error bars</li>
-<li>Error bars / new file</li>
-<li>Image</li>
-<li>Image / new file</li>
-<li>Band</li>
-<li>Band / new image</li>
-<li>Straight line</li>
-<li>Span</li>
-<li>Text</li>
+<li><p>line</p></li>
+<li><p>line / new file</p></li>
+<li><p>scatter</p></li>
+<li><p>scatter / new file</p></li>
+<li><p>scatter CB</p></li>
+<li><p>scatter CB / new file</p></li>
+<li><p>histogram</p></li>
+<li><p>histogram / new file</p></li>
+<li><p>Error bars</p></li>
+<li><p>Error bars / new file</p></li>
+<li><p>Image</p></li>
+<li><p>Image / new file</p></li>
+<li><p>Band</p></li>
+<li><p>Band / new image</p></li>
+<li><p>Straight line</p></li>
+<li><p>Span</p></li>
+<li><p>Text</p></li>
 </ul>
 </div></blockquote>
 <div class="section" id="line-plots">
 <h2>Line plots<a class="headerlink" href="#line-plots" title="Permalink to this headline">¶</a></h2>
 <div class="figure align-right" id="id1" style="width: 300px">
 <img alt="_images/lineplot.png" src="_images/lineplot.png" />
-<p class="caption"><span class="caption-text">Line plot related widgets</span></p>
+<p class="caption"><span class="caption-text">Line plot related widgets</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 <p>The figure on the right shows the widget that will appear when you want to add a line plot.</p>
 <p>The first line shows you the name of the loaded file for which you choosed to draw the scatter plot.
@@ -207,7 +209,7 @@ Finally, the spinbox with number allows you to smooth your line plot by a gaussi
 <h2>Band plots<a class="headerlink" href="#band-plots" title="Permalink to this headline">¶</a></h2>
 <div class="figure align-right" id="id2" style="width: 300px">
 <img alt="_images/band_widgets.png" src="_images/band_widgets.png" />
-<p class="caption"><span class="caption-text">Band plot related widgets</span></p>
+<p class="caption"><span class="caption-text">Band plot related widgets</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 <p>The figure on the right shows the widget that will appear when y ou start a band plot.
 The first line shows you the file you use for this plot.
@@ -217,15 +219,15 @@ Then you have to give <em>X</em>, <em>Y1</em>, <em>Y2</em>. Photon will create a
 The <em>color Band</em> widget allows you to select the filling color.
 Finally the <em>zorder</em> parameter allows you to choose how all the elements of the plot are pilled up (which one is on top of eachother).</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">It is worth mentionning that the fill_between method of matplotlib does not have a label argumnet. Therefore a line is created at the mean of <em>Y1</em> and <em>Y2</em> with the same color and same zorder as the band (it is therefore invisible). This label is assigned to this invisible line in the legend.</p>
+<p class="admonition-title">Warning</p>
+<p>It is worth mentionning that the fill_between method of matplotlib does not have a label argumnet. Therefore a line is created at the mean of <em>Y1</em> and <em>Y2</em> with the same color and same zorder as the band (it is therefore invisible). This label is assigned to this invisible line in the legend.</p>
 </div>
 </div>
 <div class="section" id="scatter-plots">
 <h2>Scatter plots<a class="headerlink" href="#scatter-plots" title="Permalink to this headline">¶</a></h2>
 <div class="figure align-right" id="id3" style="width: 300px">
 <img alt="_images/scatterplot.png" src="_images/scatterplot.png" />
-<p class="caption"><span class="caption-text">Scatter plot related widgets</span></p>
+<p class="caption"><span class="caption-text">Scatter plot related widgets</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 <p>The figure on the right shows the widget that will appear when you want to add scatter plot.</p>
 <p>The first line shows you the name of the loaded file for which you choosed to draw the scatter plot.
@@ -237,8 +239,8 @@ The <em>marker</em> widget allows you to change the symbol you want to use for y
 The <em>size</em> spinbox will change the size of the symbols.
 The checkbox <em>Empty Marker</em> will remove the filling of the marker (e.g. filled circle –&gt; empty circle).</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">If your symbols as only lines (e.g. crosses, ‘+’…) checking the ‘Empty Marker’ box will
+<p class="admonition-title">Warning</p>
+<p>If your symbols as only lines (e.g. crosses, ‘+’…) checking the ‘Empty Marker’ box will
 make your symbol disappear.</p>
 </div>
 <p>The two last slidebars make you control the tickness of the line drawing the marker and the transparency.</p>
@@ -247,7 +249,7 @@ make your symbol disappear.</p>
 <h2>Scatter plots with colorbar<a class="headerlink" href="#scatter-plots-with-colorbar" title="Permalink to this headline">¶</a></h2>
 <div class="figure align-right" id="id4" style="width: 300px">
 <img alt="_images/colorbarwidgets.png" src="_images/colorbarwidgets.png" />
-<p class="caption"><span class="caption-text">Scatter plot with color bar related widgets</span></p>
+<p class="caption"><span class="caption-text">Scatter plot with color bar related widgets</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 <p>The figure on the right shows the widget that will appear when you want to add scatter plot that includes a colorbar.</p>
 <p>The first line shows you the name of the loaded file for which you choosed to draw the scatter plot.
@@ -261,8 +263,8 @@ The <em>marker</em> widget allows you to change the symbol you want to use for y
 The <em>size</em> spinbox will change the size of the symbols.
 The checkbox <em>Empty Marker</em> will remove the filling of the marker (e.g. filled circle –&gt; empty circle).</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">If your symbols as only lines (e.g. crosses, ‘+’…) checking the ‘Empty Marker’ box will
+<p class="admonition-title">Warning</p>
+<p>If your symbols as only lines (e.g. crosses, ‘+’…) checking the ‘Empty Marker’ box will
 make your symbol disappear.</p>
 </div>
 <p>The two last slidebars make you control the tickness of the line drawing the marker and the transparency.</p>
@@ -273,7 +275,7 @@ And finally you have all the properties for the color bar itself. You can contro
 <h2>Histogram plots<a class="headerlink" href="#histogram-plots" title="Permalink to this headline">¶</a></h2>
 <div class="figure align-right" id="id5" style="width: 300px">
 <img alt="_images/histplot.png" src="_images/histplot.png" />
-<p class="caption"><span class="caption-text">Histogram related widgets</span></p>
+<p class="caption"><span class="caption-text">Histogram related widgets</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
 <p>The figure on the right shows the widget that will appear when you want to add an histogram plot.</p>
 <p>The first line shows you the loaded file for which you choosed to draw the histogram.
@@ -294,7 +296,7 @@ Finally, a check box <em>norm</em> allows one to normalise the histogram. It wil
 <h2>Errorbar plots<a class="headerlink" href="#errorbar-plots" title="Permalink to this headline">¶</a></h2>
 <div class="figure align-right" id="id6" style="width: 300px">
 <img alt="_images/error.png" src="_images/error.png" />
-<p class="caption"><span class="caption-text">Errorbar plot related widgets</span></p>
+<p class="caption"><span class="caption-text">Errorbar plot related widgets</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 <p>The figure on the right shows the widget that will appear when you want to add a plot with error bars.
 This kind of plot are basically equivalent to scatter plots but with some more information on how to plot the error bars</p>
@@ -315,7 +317,7 @@ Finally you can control the tickness of the errorbars and the size of the errorb
 <h2>Image plots<a class="headerlink" href="#image-plots" title="Permalink to this headline">¶</a></h2>
 <div class="figure align-right" id="id7" style="width: 300px">
 <img alt="_images/image.png" src="_images/image.png" />
-<p class="caption"><span class="caption-text">Image plot related widgets</span></p>
+<p class="caption"><span class="caption-text">Image plot related widgets</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </div>
 <p>The figure on the right shows the widget that will appear when you want to plot an image.</p>
 <p>As usual the first line shows the name of the loaded file (name of your image). On the second line you have the legend label (‘image plot number1’) and you can change it freely. On the same line you have the zscale checkbox that allows you to display the image with the ds9-like zscale colormap levels.</p>
@@ -326,7 +328,7 @@ Finally you can control the tickness of the errorbars and the size of the errorb
 <h2>Straight lines<a class="headerlink" href="#straight-lines" title="Permalink to this headline">¶</a></h2>
 <div class="figure align-right" id="id8" style="width: 300px">
 <img alt="_images/straightline.png" src="_images/straightline.png" />
-<p class="caption"><span class="caption-text">Straight line related widgets</span></p>
+<p class="caption"><span class="caption-text">Straight line related widgets</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
 <p>The figure on the right shows the widget that will appear when you want to add straight lines.</p>
 <p>The first widget is a multiple choice button where you can choose between <strong>vertical</strong>, <strong>horizontal</strong> and <strong>diagonal</strong> lines.
@@ -340,7 +342,7 @@ And finally the <em>slide bar</em> will help you to change the tickness of the l
 <h2>Spans<a class="headerlink" href="#spans" title="Permalink to this headline">¶</a></h2>
 <div class="figure align-right" id="id9" style="width: 300px">
 <img alt="_images/span.png" src="_images/span.png" />
-<p class="caption"><span class="caption-text">Spanning stripes related widgets</span></p>
+<p class="caption"><span class="caption-text">Spanning stripes related widgets</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 <p>The figure on the right shows the widget that will appear when you want to add strips.</p>
 <p>The first widget is a multiplt choice button where you can choose between <strong>vertical</strong> and <strong>horizontal</strong> stripes. As usual the delete button allows you to remove the strip from the plot and also all the associated widgets in the graphic element panel.
@@ -353,7 +355,7 @@ And finally the slide bar change the transparency of the strip.</p>
 <h2>Text<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h2>
 <div class="figure align-right" id="id10" style="width: 300px">
 <img alt="_images/text.png" src="_images/text.png" />
-<p class="caption"><span class="caption-text">Text related widgets</span></p>
+<p class="caption"><span class="caption-text">Text related widgets</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 <p>The figure on the right shows the widget that will appear when you want to add text.
 As usual the delete button allows you to remove the text from the plot and also all the associated widgets in the graphic element panel.</p>
@@ -462,13 +464,13 @@ An example of such plot looks like this:</p>
 </pre></div>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">It is strongly suggested not to modify this file. As photon reads it, it might have trouble to reload your configuration if the file was modified by hand
+<p class="admonition-title">Warning</p>
+<p>It is strongly suggested not to modify this file. As photon reads it, it might have trouble to reload your configuration if the file was modified by hand
 .</p>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">As you might see, for each type of plot the donfiguration gives the name of the file to be used.
+<p class="admonition-title">Warning</p>
+<p>As you might see, for each type of plot the donfiguration gives the name of the file to be used.
 It will write the full path of the file with respect to the directory where you started photon.</p>
 </div>
 </div>

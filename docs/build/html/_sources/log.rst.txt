@@ -33,6 +33,13 @@ Change log
 ----------
 ----------
 
+* **photon 19.5.0**:
+
+  * Change in the numbering system Yr.month.change
+  * Bug fix: For large amount of line plot
+
+
+
 * **photon 0.3.5**:
 
   * Bug fix: column parameter

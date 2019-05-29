@@ -89,6 +89,7 @@ for fname in flist:
         pass
 namesfont = numpy.array(names)
 namesfont = numpy.delete(names,numpy.where(names == 'Goha-Tibeb Zemen' ) )
+matplotlib.rcParams['savefig.format'] = 'png'
 
 
 class Main_window(QWidget):
