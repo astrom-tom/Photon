@@ -149,12 +149,13 @@ def axis_lim_event(grid, win, plot, figure, wid1, wid2, wid3, wid4, logx, logy, 
 
     #update ticks
     ticks(grid, win, plot, figure, conf.ticks)
-    figure.tight_layout()
+    
 
 
     ###and update the figure
+    figure.tight_layout()
+
     win.draw()
-    
  
 
 ###################################################
