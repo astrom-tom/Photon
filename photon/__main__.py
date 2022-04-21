@@ -35,6 +35,7 @@ def main():
     '''
     ###load the command line interface
     args = cli.CLI().arguments
+    print('ok', 'ok', args)
 
     if args.version == True:
         print('version %s'%info.__version__)
@@ -68,7 +69,7 @@ def main():
                 break
 
     if args.plot == None and args.file == None:
-        print('\n\t No file not plot configuration given...exiting photon...\n\
+        print('\n\t No file, no plot configuration given...exiting photon...\n\
                 Try photon --help to look at the options\n')
         sys.exit()
 

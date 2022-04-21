@@ -42,6 +42,7 @@ class CLI:
         parser.add_argument("-c", "--custom", type = str, help="Properties configuration file. If none is given the default configuration will be loaded")
         parser.add_argument("-p", "--plot", type = str, help="Saved plot configuration file, if none is given you must provide a file") 
         parser.add_argument("-w", "--width", type = int, help="Width of the GUI, default = 780")
+        parser.add_argument("-s", "--side", action="store_true", help="horizontal display")
         parser.add_argument("-d", "--docs", action = "store_true", help="open the doc in web browser")
         parser.add_argument("--version", action = "store_true", help="display version of photon")
         

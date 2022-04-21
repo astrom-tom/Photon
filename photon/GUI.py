@@ -126,16 +126,29 @@ class Main_window(QWidget):
         '''
 
         ### 1 we create the grid
-        hbox = QHBoxLayout(self)
+        if self.args.side:
+            hbox = QVBoxLayout(self)
 
-        split = QSplitter(QtCore.Qt.Vertical)
+            split = QSplitter(QtCore.Qt.Horizontal)
 
-        grid = QGridLayout()
-        grid_p = QWidget()
-        grid_p.setLayout(grid)
-        
-        hbox.addWidget(split)
-        self.setLayout(hbox)
+            grid = QGridLayout()
+            grid_p = QWidget()
+            grid_p.setLayout(grid)
+            
+            hbox.addWidget(split)
+            self.setLayout(hbox)
+
+        else:
+            hbox = QHBoxLayout(self)
+
+            split = QSplitter(QtCore.Qt.Vertical)
+
+            grid = QGridLayout()
+            grid_p = QWidget()
+            grid_p.setLayout(grid)
+            
+            hbox.addWidget(split)
+            self.setLayout(hbox)
 
         ###shortcuts
         new_plot = QShortcut(QtGui.QKeySequence("p"), self)
@@ -604,7 +617,6 @@ class Main_window(QWidget):
 
         ###extract fits
         IM = fits.open(inputfile)[0].data
-        
 
         a = self.plotarea.parentWidget().findChildren(QComboBox, 'imag_%s_mapcolor'%index)
         color = a[0].currentText()
